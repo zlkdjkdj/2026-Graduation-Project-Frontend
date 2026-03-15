@@ -1,3 +1,5 @@
+//'사용자의 학습 데이터를 분석해서 맞춤형 계획을 짜주고 진도를 관리해주는 AI 학습 매니저' -> 그냥 좆도 아님 백이랑 로직 구현 다시 해야함
+// 공부 계획 수립 → 진도 추적 → AI 피드백 → 데이터 자동 저장"**까지 한 번에 처리하는 학습 관리 대시보드입니다.
 import { useState, useEffect } from 'react';
 import { format, differenceInDays } from 'date-fns';
 import { ko } from 'date-fns/locale';
