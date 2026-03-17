@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Header } from '../../components/section/landing/Header';
-import { Mode } from './types';
+import { Header } from './Header';
+import { Mode } from '../../../pages/main/types';
 
 // 분리한 개별 컨텐츠 임포트
-import { EduVibeContent } from './components/Edu/EduVibeContent';
-import { FitnessRoutineContent } from './components/Fitness/FitnessRoutineContent';
-import { MiracleTimeContent } from './components/MiracleTimeContent';
-import { CommunityContent } from './components/CommunityContent';
+import { EduVibeContent } from '../Edu/EduVibeContent';
+import { FitnessRoutineContent } from '../Fitness/FitnessRoutineContent';
+import { MiracleTimeContent } from '../../../pages/main/MiracleTimeContent';
+import { CommunityContent } from '../CommunityContent';
 
 export function MainPage() {
   const [currentMode, setCurrentMode] = useState<Mode>('miracle');

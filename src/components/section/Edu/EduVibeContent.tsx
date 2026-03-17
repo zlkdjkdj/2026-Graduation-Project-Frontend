@@ -1,5 +1,5 @@
 import { StudyMaterialUpload } from './StudyMaterialUpload';
-import { AiSuggestions } from '../../../../components/section/AI/AiSuggestions';
+import { AiSuggestions } from '../../../components/section/AI/AiSuggestions';
 
 export function EduVibeContent() {
   return (

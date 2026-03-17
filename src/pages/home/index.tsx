@@ -1,10 +1,10 @@
-import { Header } from '../../components/section/landing/Header';
+import { Header } from '../../components/section/layout/Header';
 import { HeroSection } from '../../components/section/landing/HeroSection';
 import { AuthButtons } from '../../components/section/landing/AuthButtons';
 import { QuoteSection } from '../../components/section/landing/QuoteSection';
 import { FeaturesSection } from '../../components/section/landing/FeaturesSection';
 import { ServiceCategoriesSection } from '../../components/section/landing/ServiceCategoriesSection';
-import { Footer } from '../../components/section/landing/Footer';
+import { Footer } from '../../components/section/layout/Footer';
 
 export function LandingPage() {
   return (

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Routine, Task } from '../types';
+import { Routine, Task } from './types';
 
 const DAYS_OF_WEEK = ['월', '화', '수', '목', '금', '토', '일'];
 

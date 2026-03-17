@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Post } from '../types';
+import { Post } from '../../pages/main/types';
 
 export function CommunityContent() {
   const [posts, setPosts] = useState<Post[]>([
