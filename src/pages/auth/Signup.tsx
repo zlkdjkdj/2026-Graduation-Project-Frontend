@@ -7,7 +7,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 const USERNAME_REGEX = /^[a-zA-Z0-9가-힣]{2,15}$/;
 
-export function RegisterPage() {
+export function SignupPage() {
   const navigate = useNavigate();
 
   // 입력 필드

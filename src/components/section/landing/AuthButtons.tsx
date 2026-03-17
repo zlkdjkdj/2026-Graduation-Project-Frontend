@@ -17,7 +17,7 @@ export function AuthButtons() {
       <div className="w-full max-w-sm space-y-4">
         {/* 회원가입 버튼 */}
         <Link 
-          to="/register"
+          to="/signup"
           className="block w-full py-5 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-2xl shadow-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-200 text-center text-lg"
         >
           <div className="flex items-center justify-center gap-3">

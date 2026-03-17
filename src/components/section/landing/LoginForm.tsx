@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Button } from '../../../app/components/ui/button';
-import { Input } from '../../../app/components/ui/input';
+import { Button } from '../../../components/figma/ui/button';
+import { Input } from '../../../components/figma/ui/input';
 
 export function LoginForm() {
   const [email, setEmail] = useState('');

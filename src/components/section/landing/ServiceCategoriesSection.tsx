@@ -1,4 +1,4 @@
-import { ImageWithFallback } from '../../figma/figma/ImageWithFallback';
+import { ImageWithFallback } from '../../figma/ImageWithFallback';
 
 export function ServiceCategoriesSection() {
   return (
