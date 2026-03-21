@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { LandingPage } from "../pages/home/index";
-import { MainPage } from "../../src/components/section/layout/NavBar";
+import { MainPage } from "../pages/main/main";
 import { SignupPage } from "../pages/auth/Signup";
 import { LoginPage } from "../pages/auth/Login";
 import { TabPage } from "../pages/main/Tab";
