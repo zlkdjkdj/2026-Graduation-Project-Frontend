@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+
 import {
   BookOpen, Dumbbell, Users, Sun, Moon, Sparkles,
   Upload, Calendar, Trash2, CheckCircle, Plus, Zap,
