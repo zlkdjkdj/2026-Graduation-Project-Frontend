@@ -1,3 +1,4 @@
+// 학습(Education) 섹션 컴포넌트
 import React from 'react';
 import { 
   BookOpen, Upload, Loader2, Sparkles, Flag, Zap, 
@@ -10,12 +11,14 @@ import { useEducation } from '../../utils/Main/useEducation';
 
 export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () => void }) {
   const t = getTheme(dark);
-  // 커스텀 훅에서 상태와 액션을 가져옵니다.
+  
+  // 커스텀 훅,  상태(state), 계산된 통계(stats), 실행 함수(actions)
   const { state, stats, actions } = useEducation(earnPoints);
 
   return (
     <div className="space-y-8 animate-slideUp">
-      {/* 1. Study Setup */}
+      
+      {/* 1. 학습 설정  */}
       <div className={`p-8 md:p-12 rounded-[3rem] border ${t.card}`}>
         <SectionHeading icon={<BookOpen size={24} />} title="Study Setup" sub="학습 목표와 기간을 입력하세요" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
@@ -37,11 +40,13 @@ export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () 
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          {/* 학습 자료 업로드 */}
           <label className={`lg:col-span-2 border-2 border-dashed rounded-[2rem] p-10 flex flex-col items-center justify-center gap-3 cursor-pointer transition-all ${dark ? 'border-slate-800 hover:bg-slate-800/40' : 'border-slate-200 hover:bg-slate-50'}`}>
             <Upload size={32} className={t.textMuted} />
             <p className={`font-semibold text-sm ${t.textMuted}`}>자료 업로드 (PDF / 이미지)</p>
             <input type="file" className="hidden" />
           </label>
+          {/* AI 분석 시작 버튼 */}
           <button onClick={actions.handleStartAnalysis} disabled={state.isAnalyzing} className="bg-indigo-600 text-white rounded-[2rem] font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-600/25 flex flex-col items-center justify-center gap-3 min-h-[140px]">
             {state.isAnalyzing ? <Loader2 className="animate-spin" size={28} /> : <Sparkles size={28} />}
             <span className="text-sm tracking-widest uppercase">{state.isAnalyzing ? '분석 중...' : '분석 시작'}</span>
@@ -49,13 +54,14 @@ export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () 
         </div>
       </div>
 
-      {/* 2. Progress */}
+      {/* 2. 학습 진도 (Progress) */}
       <div className={`p-8 md:p-12 rounded-[3rem] border ${t.card}`}>
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-indigo-600/10 rounded-2xl text-indigo-500 border border-indigo-500/20"><Flag size={22} /></div>
             <div><h3 className="text-xl font-black italic uppercase">전체 진도 대비 달성률</h3></div>
           </div>
+          {/* 계획 대비 현재 페이스 표시 (앞서감/뒤처짐) */}
           <div className={`px-4 py-2 rounded-2xl border text-xs font-black uppercase tracking-wide ${stats.gap >= 0 ? 'bg-emerald-500/15 border-emerald-500/25 text-emerald-400' : 'bg-rose-500/15 border-rose-500/25 text-rose-400'}`}>
             {stats.gap >= 0 ? `+${stats.gap}% 앞서감` : `${stats.gap}% 뒤처짐`}
           </div>
@@ -66,8 +72,9 @@ export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () 
         </div>
       </div>
 
-      {/* 3. Tasks grid */}
+      {/* 3. 할 일 그리드 (Tasks) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* AI 가이드: 분석 결과에 따른 자동 생성 할 일 */}
         <div className={`p-8 md:p-10 rounded-[3rem] border ${t.card}`}>
           <SectionHeading icon={<Zap size={22} />} title="AI 오늘의 가이드" />
           <div className="space-y-3">
@@ -80,6 +87,7 @@ export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () 
             ))}
           </div>
         </div>
+        {/* 개인 스케줄: 사용자가 직접 추가하는 할 일 목록 */}
         <div className={`p-8 md:p-10 rounded-[3rem] border ${t.card}`}>
           <SectionHeading icon={<Calendar size={22} />} title="My Schedule" />
           <div className="space-y-2.5 mb-5 max-h-52 overflow-y-auto pr-1">
@@ -91,6 +99,7 @@ export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () 
               </div>
             ))}
           </div>
+          {/* 새로운 할 일 입력창 */}
           <div className="flex gap-2">
             <input type="text" value={state.newTask} onChange={e => actions.setNewTask(e.target.value)} onKeyDown={e => e.key === 'Enter' && actions.addManTask()} placeholder="새 할 일을 입력하세요..." className={`flex-1 rounded-xl px-4 py-3 text-sm font-semibold outline-none border-2 transition-all ${t.input}`} />
             <button onClick={actions.addManTask} className="bg-indigo-600 px-4 rounded-xl hover:bg-indigo-700 transition-all text-white"><Plus size={20} /></button>
@@ -98,7 +107,7 @@ export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () 
         </div>
       </div>
 
-      {/* 4. 공부 기록 섹션 */}
+      {/* 4. 공부 기록 (Study Logs): 실시간 학습 시간 및 내용 수동 기록 */}
       <div className={`p-8 md:p-12 rounded-[3rem] border ${t.card} space-y-6`}>
         <SectionHeading icon={<Clock size={24} />} title="공부 기록" sub="학습 시간을 기록하고 포인트를 획득하세요" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -114,6 +123,7 @@ export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () 
         <button onClick={actions.saveStudyLog} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white rounded-2xl font-black text-sm shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center gap-2">
           <Save size={18} /> 기록 저장 (+10 PT)
         </button>
+        {/* 오늘 작성된 학습 기록 목록 히스토리 */}
         {state.studyLogs.length > 0 && (
           <div className={`pt-5 border-t ${t.divider} space-y-3`}>
             <p className={`text-[11px] font-black uppercase tracking-widest ${t.label}`}>오늘의 학습 기록 ({state.studyLogs.length}건)</p>
@@ -129,7 +139,7 @@ export function Education({ dark, earnPoints }: { dark: boolean; earnPoints: () 
         )}
       </div>
 
-      {/* 5. AI Study Suggestions */}
+      {/* 5. AI 학습 제안 (Suggestions): 데이터 기반 맞춤형 코칭 가이드 */}
       <div className={`p-8 md:p-12 rounded-[3rem] border ${t.card} space-y-6`}>
         <SectionHeading icon={<Brain size={24} />} title="AI 학습 제안" action={<button onClick={actions.handleRefreshStudySugg} disabled={state.isRefreshingSugg} className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-2xl font-bold text-xs transition-all active:scale-95 hover:bg-indigo-700">{state.isRefreshingSugg ? <Loader2 className="animate-spin" size={14} /> : <RefreshCw size={14} />} 새 제안 받기</button>} />
         <div className="space-y-4">

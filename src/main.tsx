@@ -1,4 +1,4 @@
-
+//엔트리 포인트 파일
   import { createRoot } from "react-dom/client";
   import App from "./app/App.tsx";
   import "./styles/index.css";

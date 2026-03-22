@@ -1,11 +1,17 @@
-//각 모드별 섹션, 테마 설정, 상수, 스타일 정보
+// 프로젝트 전역 테마 설정, 상수 및 스타일 정보 관리
 import React from 'react';
 import { Lightbulb, AlertCircle, Zap, Calendar, Award, TrendingUp, Activity } from 'lucide-react';
 import { BodyPart, StudySuggestion, FitnessSuggestion } from './Types';
 
+/** --- 기본 상수 설정 --- **/
+// 운동 기록 시 사용되는 신체 부위 목록
 export const BODY_PARTS: BodyPart[] = ['가슴', '등', '어깨', '이두', '삼두', '하체', '복근'];
+// 오늘 날짜 (YYYY-MM-DD 형식)
 export const TODAY = new Date().toISOString().slice(0, 10);
 
+/** * 다크/화이트 모드 테마 팔레트 
+ * @param dark - true일 경우 다크모드 전용 Tailwind 클래스 반환
+ */
 export const getTheme = (dark: boolean) => dark
   ? {
       bg: 'bg-[#0a0a0c] text-slate-200',
@@ -34,6 +40,8 @@ export const getTheme = (dark: boolean) => dark
       sectionBg: 'bg-slate-50',
     };
 
+/** --- AI 제안 카드 전용 스타일 맵핑 --- **/
+// 1. 학습(Education) 섹션 AI 제안 스타일
 export const STUDY_SUGG_STYLE: Record<StudySuggestion['type'], any> = {
   tip: { icon: <Lightbulb size={16} className="text-yellow-400" />, border: 'border-yellow-500/20 bg-yellow-500/5', badge: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/20', label: '학습 팁' },
   warning: { icon: <AlertCircle size={16} className="text-rose-400" />, border: 'border-rose-500/20 bg-rose-500/5', badge: 'bg-rose-500/15 text-rose-400 border-rose-500/20', label: '주의' },
@@ -41,6 +49,7 @@ export const STUDY_SUGG_STYLE: Record<StudySuggestion['type'], any> = {
   schedule: { icon: <Calendar size={16} className="text-blue-400" />, border: 'border-blue-500/20 bg-blue-500/5', badge: 'bg-blue-500/15 text-blue-400 border-blue-500/20', label: '일정' },
 };
 
+// 2. 운동(Fitness) 섹션 AI 코치 스타일
 export const FITNESS_SUGG_STYLE: Record<FitnessSuggestion['type'], any> = {
   praise: { icon: <Award size={16} className="text-yellow-400" />, border: 'border-yellow-500/20 bg-yellow-500/5', badge: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/20', label: '칭찬' },
   improve: { icon: <TrendingUp size={16} className="text-indigo-400" />, border: 'border-indigo-500/20 bg-indigo-500/5', badge: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/20', label: '개선' },
@@ -48,6 +57,8 @@ export const FITNESS_SUGG_STYLE: Record<FitnessSuggestion['type'], any> = {
   caution: { icon: <AlertCircle size={16} className="text-rose-400" />, border: 'border-rose-500/20 bg-rose-500/5', badge: 'bg-rose-500/15 text-rose-400 border-rose-500/20', label: '주의' },
 };
 
+/** --- 모의 데이터 (Mock Data) --- **/
+// AI 학습 제안 갱신 시 보여줄 임시 데이터
 export const MOCK_NEW_STUDY_SUGGESTIONS = [
   { 
     type: 'tip' as const,   
