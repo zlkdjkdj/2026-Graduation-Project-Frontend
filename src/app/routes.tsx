@@ -1,11 +1,30 @@
-import Home from "../pages/Home";
+import { createBrowserRouter } from "react-router";
+import { LandingPage } from "../pages/home/Home";
+import { MainPage } from "../pages/main/ModePage";
+import { SignupPage } from "../pages/auth/Signup";
+import { LoginPage } from "../pages/auth/Login";
+import { TabPage } from "../pages/main/Tab";
 
-import type { RouteObject } from "react-router-dom";
 
-// 모든 페이지 경로(Route)를 정의하는 리스트
-export const routes : RouteObject[] = [
+export const router = createBrowserRouter([
   {
-    path : "/", 
-    element : <Home />
+    path: "/",
+    element: <LandingPage />,
   },
-]
+  {
+    path: "/main",
+    element: <MainPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/tab",
+    element: <TabPage />,
+  }
+]);
