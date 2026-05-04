@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import type { Todo } from '../../types';
-import { 
-  SyllabusBox, ChecklistBox, DiaryBox, StopwatchBox, 
-  AiSuggestionBox, DashboardBox, GeminiBox 
-} from '../../components/section/StudySection';
+import {
+  SyllabusBox, ChecklistBox, DiaryBox, StopwatchBox,
+  AiSuggestionBox, DashboardBox, GeminiBox,
+} from '../../components/section/study';
 
 export function StudyPage() {
   const [todos, setTodos] = useState<Todo[]>([

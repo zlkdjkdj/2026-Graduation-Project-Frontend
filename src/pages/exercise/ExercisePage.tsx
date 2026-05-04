@@ -1,7 +1,7 @@
 import {
   ExerciseRecordBox, ExerciseGuideBox, DietBox,
-  AiExerciseGuideBox, ExerciseDiaryBox, BodyCompositionBox, ExerciseDashboardBox
-} from '../../components/section/exercise/ExerciseSection';
+  AiExerciseGuideBox, ExerciseDiaryBox, BodyCompositionBox, ExerciseDashboardBox,
+} from '../../components/section/exercise';
 
 export function ExercisePage() {
   return (
