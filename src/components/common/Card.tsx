@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 export function Card({ children, className = '' }: { children: ReactNode, className?: string }) {
   return (
-    <div className={`bg-white dark:bg-[#18181B] rounded-xl border border-gray-200 dark:border-[#2A2A2B] p-6 shadow-sm dark:shadow-lg shrink-0 transition-colors ${className}`}>
+    <div className={`studio-card ${className}`}>
       {children}
     </div>
   );
@@ -10,8 +10,8 @@ export function Card({ children, className = '' }: { children: ReactNode, classN
 
 export function CardTitle({ children, className = '', icon }: { children: ReactNode, className?: string, icon?: ReactNode }) {
   return (
-    <h2 className={`text-lg font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2 ${className}`}>
-      {icon && icon}
+    <h2 className={`text-xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3 tracking-tight ${className}`}>
+      {icon && <span className="p-2 bg-gray-100 dark:bg-[#1a1a1a] rounded-xl text-gray-600 dark:text-gray-400">{icon}</span>}
       {children}
     </h2>
   );

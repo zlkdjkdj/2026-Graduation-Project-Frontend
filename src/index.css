@@ -1,2 +1,90 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
+
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg-main: #fafafa;
+    --bg-card: #ffffff;
+    --text-main: #111827;
+    --border-main: #e5e7eb;
+    --brand-primary: #000000;
+  }
+  .dark {
+    --bg-main: #000000;
+    --bg-card: #09090b;
+    --text-main: #ededed;
+    --border-main: #1a1a1a;
+    --brand-primary: #ffffff;
+  }
+  
+  html, body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+    transition: background-color 0.5s ease;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.2);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(150, 150, 150, 0.4);
+  }
+}
+
+@layer utilities {
+  .studio-card {
+    @apply bg-white dark:bg-[#09090b] border border-gray-200 dark:border-[#1a1a1a] rounded-[2.5rem] p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5 dark:hover:shadow-white/5;
+  }
+  
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  }
+
+  .dark .text-glow {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  }
+
+  .glow-indigo {
+    @apply relative overflow-hidden;
+  }
+  .glow-indigo::after {
+    content: '';
+    @apply absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/10 blur-[80px] pointer-events-none rounded-full;
+  }
+  
+  .glow-rose {
+    @apply relative overflow-hidden;
+  }
+  .glow-rose::after {
+    content: '';
+    @apply absolute -bottom-24 -left-24 w-48 h-48 bg-rose-500/10 blur-[80px] pointer-events-none rounded-full;
+  }
+}
+
+@keyframes progress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
