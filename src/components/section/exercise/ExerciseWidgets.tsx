@@ -20,27 +20,45 @@ const DAYS = ['월', '화', '수', '목', '금', '토', '일'];
 const WEEKLY_DATA = [50, 60, 55, 80, 70, 95, 60];
 const BODY_PARTS = ['가슴', '등', '어깨', '이두', '삼두', '하체'];
 
+const VIDEO_IDS: Record<string, string> = {
+  '가슴': 'z-v7r_e3oI0', // 벤치프레스 정석
+  '등': 'vE_8_H_y_Yc', // 데드리프트 정석
+  '어깨': 'YpW5f-4N6Fk', // 밀리터리 프레스
+  '이두': '97I8Yx-4H_o', // 바벨 컬
+  '삼두': 'p9Kj_C_j_2M', // 킥백
+  '하체': '_h7p66_O7v8'  // 스쿼트 정석
+};
+
 export function ExerciseGuideBox() {
   const [active, setActive] = useState('가슴');
   return (
-    <Card className="flex flex-col h-full border-t-4 border-rose-500">
+    <Card className="flex flex-col h-full border-t-4 border-rose-500 min-h-[500px]">
       <CardTitle icon={<PlayCircleIcon size={18} />}>비주얼 트레이닝</CardTitle>
-      <div className="flex flex-wrap gap-3 mb-10">
+      <div className="flex flex-wrap gap-2 mb-8">
         {BODY_PARTS.map(p => (
           <button
             key={p}
             onClick={() => setActive(p)}
-            className={`px-6 py-3 rounded-xl text-[0.65rem] font-black uppercase tracking-widest transition-all ${active === p ? 'bg-rose-600 text-white shadow-xl' : 'border border-gray-100 dark:border-[#1a1a1a] text-gray-400 hover:text-rose-600'}`}
+            className={`px-4 py-2 rounded-xl text-[0.6rem] font-black uppercase tracking-widest transition-all ${active === p ? 'bg-rose-600 text-white shadow-lg' : 'bg-gray-50 dark:bg-[#111] text-gray-400 hover:text-rose-600 border border-gray-100 dark:border-[#1a1a1a]'}`}
           >
             {p}
           </button>
         ))}
       </div>
-      <div className="flex-grow bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-[2.5rem] flex flex-col items-center justify-center min-h-[250px] cursor-pointer hover:bg-rose-50 transition-all group overflow-hidden relative">
-        <div className="absolute inset-0 bg-rose-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-        <PlayCircleIcon size={64} className="text-gray-300 group-hover:text-rose-600 transition-all group-hover:scale-110 z-10" />
+      <div className="flex-grow bg-black rounded-[2rem] overflow-hidden relative aspect-video shadow-2xl">
+        <iframe
+          key={active}
+          width="100%"
+          height="100%"
+          src={`https://www.youtube.com/embed/${VIDEO_IDS[active]}`}
+          title={`${active} 운동 가이드`}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0"
+        ></iframe>
       </div>
-      <p className="text-center text-[0.65rem] font-black uppercase tracking-[0.2em] text-gray-400 mt-6">{active} 교육 영상 스트림</p>
+      <p className="text-center text-[0.65rem] font-black uppercase tracking-[0.2em] text-gray-400 mt-6">{active} 테크닉 마스터 클래스</p>
     </Card>
   );
 }
@@ -58,17 +76,42 @@ export function AiExerciseGuideBox() {
   );
 }
 
-export function ExerciseDiaryBox() {
+export function TrainingSessionBox() {
   return (
-    <Card className="h-full glow-rose border-t-4 border-rose-500">
-      <CardTitle icon={<EditIcon size={18} />}>트레이닝 로그</CardTitle>
-      <textarea placeholder="오늘의 강도, 집중도, 그리고 신체 반응을 기록하세요..." className="w-full bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-[2rem] p-8 text-sm text-gray-800 dark:text-gray-200 flex-grow min-h-[160px] mb-8 outline-none focus:ring-2 focus:ring-rose-500 transition-all font-medium leading-relaxed resize-none" />
-      <div className="flex items-center justify-between gap-6 mt-auto">
-        <div className="flex items-center gap-4">
-          <input type="number" defaultValue="0" className="w-24 bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-xl p-4 text-center text-lg font-black outline-none focus:ring-2 focus:ring-rose-500 transition-all" />
-          <span className="text-[0.65rem] font-black uppercase tracking-widest text-gray-400">총 운동 시간 (분)</span>
+    <Card className="h-full glow-rose border-t-4 border-rose-500 flex flex-col">
+      <CardTitle icon={<DumbbellIcon size={18} />}>트레이닝 세션 & 로그</CardTitle>
+      
+      <div className="space-y-6 flex-grow">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="text-[0.65rem] font-black uppercase tracking-widest text-gray-400 ml-1 block">운동 시간</label>
+            <div className="relative">
+              <input type="number" defaultValue="0" className="w-full bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-2xl p-4 text-lg font-black outline-none focus:ring-2 focus:ring-rose-500 transition-all pr-12" />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[0.65rem] font-black text-gray-400 uppercase">분</span>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label className="text-[0.65rem] font-black uppercase tracking-widest text-gray-400 ml-1 block">오늘의 강도</label>
+            <div className="flex gap-2">
+              {['Low', 'Mid', 'High'].map(lv => (
+                <button key={lv} className="flex-grow py-3 border border-gray-100 dark:border-[#1a1a1a] rounded-xl text-[0.65rem] font-black uppercase tracking-tighter hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:text-rose-600 transition-all">{lv}</button>
+              ))}
+            </div>
+          </div>
         </div>
-        <button className="py-4 px-12 bg-black dark:bg-white text-white dark:text-black rounded-2xl text-sm font-black active:scale-95 transition-all shadow-xl shadow-rose-500/10">세션 저장</button>
+
+        <div className="space-y-2">
+          <label className="text-[0.65rem] font-black uppercase tracking-widest text-gray-400 ml-1 block">트레이닝 노트</label>
+          <textarea 
+            placeholder="오늘의 집중도, 세트 구성, 신체 반응을 기록하세요..." 
+            className="w-full bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-[2rem] p-6 text-sm text-gray-800 dark:text-gray-200 min-h-[120px] outline-none focus:ring-2 focus:ring-rose-500 transition-all font-medium leading-relaxed resize-none" 
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mt-8">
+        <button className="py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl text-sm font-black active:scale-95 transition-all shadow-xl shadow-rose-500/10">세션 완료 및 저장</button>
+        <button className="py-4 border border-gray-100 dark:border-[#1a1a1a] text-gray-500 rounded-2xl text-sm font-black active:scale-95 transition-all hover:bg-gray-50 dark:hover:bg-[#0a0a0a]">초기화</button>
       </div>
     </Card>
   );

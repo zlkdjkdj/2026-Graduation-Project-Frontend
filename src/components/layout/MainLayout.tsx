@@ -11,12 +11,14 @@
 import { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
-  BookIcon, DumbbellIcon, UsersIcon, SettingsIcon, SunIcon, MoonIcon,
+  BookIcon, DumbbellIcon, UsersIcon, SettingsIcon, SunIcon, MoonIcon, CalendarIcon,
+  ChevronLeftIcon, ChevronRightIcon
 } from '../ui/Icons';
 
 export function MainLayout() {
   // 기본값 false = 라이트 모드로 시작
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -38,12 +40,13 @@ export function MainLayout() {
         active
           ? 'bg-black dark:bg-white text-white dark:text-black shadow-lg shadow-black/10 dark:shadow-white/10'
           : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1a1a1a]'
-      }`}
+      } ${isSidebarCollapsed ? 'justify-center px-0 w-12 mx-auto' : ''}`}
+      title={isSidebarCollapsed ? label : ''}
     >
       <div className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-inherit' : 'text-gray-400 group-hover:text-inherit'}`}>
         {icon}
       </div>
-      <span className="text-[0.95rem] font-bold tracking-tight">{label}</span>
+      {!isSidebarCollapsed && <span className="text-[0.95rem] font-bold tracking-tight whitespace-nowrap">{label}</span>}
     </div>
   );
 
@@ -51,31 +54,42 @@ export function MainLayout() {
     <div className="min-h-screen bg-[#fafafa] dark:bg-[#000000] text-gray-900 dark:text-[#ededed] flex transition-colors duration-500 font-sans selection:bg-indigo-500/30">
 
       {/* ── 데스크탑 사이드바 (lg 이상에서만 표시) ── */}
-      <aside className="w-72 hidden lg:flex flex-col border-r border-gray-200 dark:border-[#1a1a1a] p-6 sticky top-0 h-screen transition-colors duration-300">
+      <aside className={`hidden lg:flex flex-col border-r border-gray-200 dark:border-[#1a1a1a] p-6 sticky top-0 h-screen transition-all duration-500 ${isSidebarCollapsed ? 'w-24' : 'w-72'}`}>
         {/* 로고 */}
-        <div className="flex items-center gap-3 px-2 mb-10 cursor-pointer" onClick={() => navigate('/study')}>
-          <div className="w-10 h-10 bg-black dark:bg-white rounded-xl flex items-center justify-center text-white dark:text-black font-black text-sm shadow-xl">LT</div>
-          <h1 className="text-xl font-black tracking-tighter uppercase">Learn-Time</h1>
+        <div className={`flex items-center gap-3 px-2 mb-10 cursor-pointer ${isSidebarCollapsed ? 'justify-center' : ''}`} onClick={() => navigate('/study')}>
+          <div className="w-10 h-10 bg-black dark:bg-white rounded-xl flex items-center justify-center text-white dark:text-black font-black text-sm shadow-xl flex-shrink-0">LT</div>
+          {!isSidebarCollapsed && <h1 className="text-xl font-black tracking-tighter uppercase animate-in fade-in duration-500">Learn-Time</h1>}
         </div>
 
         {/* 네비게이션 메뉴 */}
         <div className="space-y-2 flex-grow">
           <NavItem to="/study"     icon={<BookIcon size={20} />}     label="학습 스튜디오" active={currentPath.includes('study')} />
           <NavItem to="/exercise"  icon={<DumbbellIcon size={20} />} label="운동 랩"       active={currentPath.includes('exercise')} />
+          <NavItem to="/schedule"  icon={<CalendarIcon size={20} />} label="일정 생성"     active={currentPath.includes('schedule')} />
           <NavItem to="/community" icon={<UsersIcon size={20} />}   label="커뮤니티"      active={currentPath.includes('community')} />
           <NavItem to="/settings"  icon={<SettingsIcon size={20} />} label="설정"          active={currentPath.includes('settings')} />
         </div>
 
-        {/* 테마 토글 버튼 */}
-        <div className="pt-6 border-t border-gray-200 dark:border-[#1a1a1a]">
+        {/* 테마 토글 및 사이드바 토글 버튼 */}
+        <div className="pt-6 border-t border-gray-200 dark:border-[#1a1a1a] space-y-3">
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-gray-50 dark:bg-[#0a0a0a] border border-gray-100 dark:border-[#1a1a1a] hover:bg-gray-100 dark:hover:bg-[#151515] transition-all duration-300 group"
+            className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-gray-50 dark:bg-[#0a0a0a] border border-gray-100 dark:border-[#1a1a1a] hover:bg-gray-100 dark:hover:bg-[#151515] transition-all duration-300 group ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
           >
             <div className="text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
               {isDarkMode ? <SunIcon size={20} /> : <MoonIcon size={20} />}
             </div>
-            <span className="text-[0.95rem] font-bold tracking-tight">{isDarkMode ? '라이트 모드' : '다크 모드'}</span>
+            {!isSidebarCollapsed && <span className="text-[0.95rem] font-bold tracking-tight whitespace-nowrap">{isDarkMode ? '라이트 모드' : '다크 모드'}</span>}
+          </button>
+
+          <button
+            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+            className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl border border-dashed border-gray-200 dark:border-[#1a1a1a] text-gray-400 hover:text-black dark:hover:text-white hover:border-gray-400 transition-all duration-300 group ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
+          >
+            <div className="group-hover:scale-110 transition-transform">
+              {isSidebarCollapsed ? <ChevronRightIcon size={20} /> : <ChevronLeftIcon size={20} />}
+            </div>
+            {!isSidebarCollapsed && <span className="text-[0.95rem] font-bold tracking-tight">사이드바 접기</span>}
           </button>
         </div>
       </aside>
@@ -92,7 +106,7 @@ export function MainLayout() {
       </nav>
 
       {/* ── 메인 콘텐츠 영역 (라우팅된 페이지가 여기에 렌더링됨) ── */}
-      <main className="flex-grow p-6 lg:p-10 pt-24 lg:pt-10 overflow-y-auto max-w-[1800px] mx-auto w-full">
+      <main className="flex-grow p-6 lg:p-10 pt-24 lg:pt-10 overflow-y-auto max-w-[1800px] mx-auto w-full transition-all duration-500">
         <Outlet />
       </main>
     </div>

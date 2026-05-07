@@ -1,6 +1,6 @@
 import {
-  ExerciseRecordBox, ExerciseGuideBox, DietBox,
-  AiExerciseGuideBox, ExerciseDiaryBox, BodyCompositionBox, ExerciseDashboardBox,
+  TrainingSessionBox, ExerciseGuideBox, DietBox,
+  AiExerciseGuideBox, BodyCompositionBox, ExerciseDashboardBox,
 } from '../../components/section/exercise';
 
 export function ExercisePage() {
@@ -12,15 +12,19 @@ export function ExercisePage() {
       </header>
 
       <div className="bento-grid">
-        <div className="col-span-12 lg:col-span-8">
+        <div className="col-span-12 lg:col-span-12">
           <ExerciseDashboardBox />
         </div>
         
-        <div className="col-span-12 lg:col-span-4 h-full">
-          <ExerciseRecordBox />
+        <div className="col-span-12 lg:col-span-8">
+          <ExerciseGuideBox />
         </div>
 
-        <div className="col-span-12 md:col-span-6 lg:col-span-5">
+        <div className="col-span-12 lg:col-span-4">
+          <TrainingSessionBox />
+        </div>
+
+        <div className="col-span-12 md:col-span-6 lg:col-span-4">
           <DietBox />
         </div>
 
@@ -28,16 +32,8 @@ export function ExercisePage() {
           <AiExerciseGuideBox />
         </div>
 
-        <div className="col-span-12 md:col-span-4 lg:col-span-3">
+        <div className="col-span-12 md:col-span-12 lg:col-span-4">
           <BodyCompositionBox />
-        </div>
-
-        <div className="col-span-12 lg:col-span-7">
-          <ExerciseDiaryBox />
-        </div>
-
-        <div className="col-span-12 lg:col-span-5">
-          <ExerciseGuideBox />
         </div>
       </div>
     </div>
