@@ -63,17 +63,17 @@ export function MainLayout() {
       {/* ── 데스크탑 사이드바 (lg 이상에서만 표시) ── */}
       <aside className={`hidden lg:flex flex-col border-r border-gray-200 dark:border-[#1a1a1a] p-6 sticky top-0 h-screen transition-all duration-500 ${isSidebarCollapsed ? 'w-24' : 'w-72'}`}>
         {/* 로고 */}
-        <div className={`flex items-center gap-3 px-2 mb-10 cursor-pointer ${isSidebarCollapsed ? 'justify-center' : ''}`} onClick={() => navigate('/study')}>
+        <div className={`flex items-center gap-3 px-2 mb-10 cursor-pointer ${isSidebarCollapsed ? 'justify-center' : ''}`} onClick={() => navigate('/main/study')}>
           <div className="w-10 h-10 bg-black dark:bg-white rounded-xl flex items-center justify-center text-white dark:text-black font-black text-sm shadow-xl flex-shrink-0">LT</div>
           {!isSidebarCollapsed && <h1 className="text-xl font-black tracking-tighter uppercase animate-in fade-in duration-500">Learn-Time</h1>}
         </div>
 
         {/* 네비게이션 메뉴 */}
         <div className="space-y-2 flex-grow">
-          <NavItem to="/schedule"  icon={<CalendarIcon size={20} />} label="일정 생성"     active={currentPath.includes('schedule')} />
+          <NavItem to="/main/schedule"  icon={<CalendarIcon size={20} />} label="일정 생성"     active={currentPath.includes('schedule')} />
           <div>
             <NavItem 
-              to="/study" 
+              to="/main/study" 
               icon={<BookIcon size={20} />} 
               label="학습 스튜디오" 
               active={currentPath.includes('study')} 
@@ -84,7 +84,7 @@ export function MainLayout() {
                   setIsStudyExpanded(!isStudyExpanded);
                 } else {
                   setIsStudyExpanded(true);
-                  navigate('/study');
+                  navigate('/main/study');
                 }
               }} 
             />
@@ -112,9 +112,9 @@ export function MainLayout() {
               </div>
             )}
           </div>
-          <NavItem to="/exercise"  icon={<DumbbellIcon size={20} />} label="운동 랩"       active={currentPath.includes('exercise')} />
-          <NavItem to="/community" icon={<UsersIcon size={20} />}   label="커뮤니티"      active={currentPath.includes('community')} />
-          <NavItem to="/settings"  icon={<SettingsIcon size={20} />} label="설정"          active={currentPath.includes('settings')} />
+          <NavItem to="/main/exercise"  icon={<DumbbellIcon size={20} />} label="운동 랩"       active={currentPath.includes('exercise')} />
+          <NavItem to="/main/community" icon={<UsersIcon size={20} />}   label="커뮤니티"      active={currentPath.includes('community')} />
+          <NavItem to="/main/settings"  icon={<SettingsIcon size={20} />} label="설정"          active={currentPath.includes('settings')} />
         </div>
 
         {/* 테마 토글 및 사이드바 토글 버튼 */}

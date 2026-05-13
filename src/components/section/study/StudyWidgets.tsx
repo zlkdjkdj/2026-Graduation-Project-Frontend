@@ -3,8 +3,8 @@
 // 학습 스튜디오 하위 위젯 컴포넌트 모음.
 //
 // 포함 컴포넌트:
-//   DiaryBox        - 학습 일지 텍스트 + 집중 시간 입력 + 저장 버튼
-//   AiSuggestionBox - AI 기반 학습 전략 제안 (InfoCard 재사용)
+//   QuizGeneratorBox - AI 기반 필기 내용 분석 및 퀴즈 생성
+//   AiSuggestionBox - AI 기반 학습 기록 분석 및 전략 제안 (InfoCard 재사용)
 //   DashboardBox    - 주간 몰입도 막대 차트 + 핵심 지표 진행 바 대시보드
 //   GeminiBox       - Gemini 링크 카드 (외부 gemini.google.com 이동)
 // ============================================================

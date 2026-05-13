@@ -2,7 +2,7 @@
 // app/routes.tsx
 // 클라이언트 사이드 라우팅 설정.
 // ============================================================
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { MainLayout } from '../components/layout/MainLayout';
 import { StudyPage } from '../pages/study/StudyPage';
 import { ExercisePage } from '../pages/exercise/ExercisePage';
@@ -14,7 +14,11 @@ import { Home } from '../pages/home/home';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />, // 랜딩 페이지
+    element: <Navigate to="/home" replace />,
+  },
+  {
+    path: '/home',
+    element: <Home />,
   },
   {
     path: '/login',
@@ -25,9 +29,10 @@ export const router = createBrowserRouter([
     element: <EmptyPage title="회원가입" />,
   },
   {
-    path: '/',
-    element: <MainLayout />, // 사이드바 + 모바일 헤더 공통 레이아웃
+    path: '/main',
+    element: <MainLayout />,
     children: [
+      { path: '',          element: <Navigate to="study" replace /> }, // /main 접근 시 study로 리다이렉트
       { path: 'study',     element: <StudyPage /> },
       { path: 'exercise',  element: <ExercisePage /> },
       { path: 'schedule',  element: <SchedulePage /> },

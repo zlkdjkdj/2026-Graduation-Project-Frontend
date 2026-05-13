@@ -6,8 +6,8 @@ import React, { useState, useMemo } from 'react';
 import { 
   PlusIcon, TrashIcon, EditIcon, MessageSquareIcon, 
   ThumbsUpIcon, TrophyIcon, SearchIcon, XIcon,
-  BicycleIcon, MotorcycleIcon, CarIcon, HelicopterIcon, 
-  PlaneIcon, RocketIcon, SparklesIcon
+  RocketIcon, SparklesIcon,
+  BadgeIcon, RewardIcon
 } from '../../components/ui/Icons';
 import { Card, CardTitle } from '../../components/common/Card';
 
@@ -37,78 +37,13 @@ interface User {
 }
 
 const REWARDS = [
-  { threshold: 0, name: '자전거', icon: <BicycleIcon />, color: 'from-orange-400 to-orange-700', level: 'BRONZE' },
-  { threshold: 101, name: '오토바이', icon: <MotorcycleIcon />, color: 'from-slate-300 to-slate-500', level: 'SILVER' },
-  { threshold: 301, name: '자동차', icon: <CarIcon />, color: 'from-yellow-300 to-yellow-600', level: 'GOLD' },
-  { threshold: 601, name: '헬리콥터', icon: <HelicopterIcon />, color: 'from-blue-300 to-indigo-500', level: 'PLATINUM' },
-  { threshold: 1001, name: '비행기', icon: <PlaneIcon />, color: 'from-cyan-300 to-blue-600', level: 'DIAMOND' },
-  { threshold: 2001, name: '우주선', icon: <RocketIcon />, color: 'from-purple-500 via-indigo-600 to-black', level: 'OBSIDIAN' },
+  { threshold: 0, name: '자전거', color: 'from-orange-400 to-orange-700', level: 'BRONZE' },
+  { threshold: 101, name: '오토바이', color: 'from-slate-300 to-slate-500', level: 'SILVER' },
+  { threshold: 301, name: '자동차', color: 'from-yellow-300 to-yellow-600', level: 'GOLD' },
+  { threshold: 601, name: '헬리콥터', color: 'from-blue-300 to-indigo-500', level: 'PLATINUM' },
+  { threshold: 1001, name: '비행기', color: 'from-cyan-300 to-blue-600', level: 'DIAMOND' },
+  { threshold: 2001, name: '우주선', color: 'from-purple-500 via-indigo-600 to-black', level: 'OBSIDIAN' },
 ];
-
-// 3D Asset URLs (Generated & Moved to public/assets)
-const VEHICLE_ASSETS = '/assets/reward_strip.png';
-const BADGE_ASSETS = '/assets/badge_strip.png';
-
-const SpriteIcon = ({ src, index, size = 40, scale = 1.3, className = "" }: { src: string, index: number, size?: number, scale?: number, className?: string }) => {
-  const cols = 6;
-  const col = index;
-
-  return (
-    <div 
-      style={{ width: size, height: size, overflow: 'hidden' }} 
-      className={`relative flex-shrink-0 flex items-center justify-center ${className}`}
-    >
-      <div style={{ width: '100%', height: '100%', transform: `scale(${scale})` }}>
-        <img 
-          src={src} 
-          style={{ 
-            width: `${cols * 100}%`, 
-            height: 'auto', 
-            maxWidth: 'none',
-            position: 'absolute',
-            left: 0,
-            top: '50%',
-            transform: `translate(-${(col * 100) / cols}%, -50%)`
-          }} 
-          alt="icon"
-        />
-      </div>
-    </div>
-  );
-};
-
-const RewardIcon = ({ index, size = 40 }: { index: number, size?: number }) => {
-  return (
-    <SpriteIcon 
-      src={VEHICLE_ASSETS} 
-      index={index} 
-      size={size} 
-      scale={2.2} 
-      className="rounded-xl bg-white dark:bg-[#111] shadow-inner" 
-    />
-  );
-};
-
-const BadgeIcon = ({ level, size = 32 }: { level: string, size?: number }) => {
-  const levelToIndex: Record<string, number> = {
-    bronze: 0,
-    silver: 1,
-    gold: 2,
-    platinum: 3,
-    diamond: 4,
-    obsidian: 5
-  };
-  const idx = levelToIndex[level.toLowerCase()] ?? 0;
-  return (
-    <SpriteIcon 
-      src={BADGE_ASSETS} 
-      index={idx} 
-      size={size} 
-      scale={2.2} 
-      className="rounded-lg shadow-sm" 
-    />
-  );
-};
 
 export function CommunityPage() {
   const [posts, setPosts] = useState<Post[]>([

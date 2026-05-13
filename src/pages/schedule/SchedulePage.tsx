@@ -2,10 +2,11 @@
 // pages/schedule/SchedulePage.tsx
 // 일정 생성 및 루틴 관리 페이지 (달력 메모 기능 추가 버전).
 // ============================================================
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { 
   PlusIcon, TrashIcon, CalendarIcon, ActivityIcon, 
-  CheckIcon, StarIcon, EditIcon, ClockIcon, XIcon
+  CheckIcon, StarIcon, EditIcon, ClockIcon, XIcon,
+  SparklesIcon
 } from '../../components/ui/Icons';
 
 interface Schedule {
@@ -36,11 +37,14 @@ export function SchedulePage() {
     { id: '4', title: '독서 (인문학)', date: '2026-05-07', startTime: '22:00', endTime: '23:00', type: 'routine', completed: false, repeatDays: [0, 6], isFavorite: false },
   ]);
 
-  // 달력 메모 상태 (날짜: 메모내용)
-  const [calendarNotes, setCalendarNotes] = useState<Record<number, string>>({
-    7: '프로젝트 마감일',
-    15: '친구 생일 🎂',
-    20: '전시회 관람'
+  // 달력 상태
+  const [viewDate, setViewDate] = useState(new Date(2026, 4, 7)); // 2026년 5월 7일 기준
+  
+  // 달력 메모 상태 (YYYY-MM-DD: 메모내용)
+  const [calendarNotes, setCalendarNotes] = useState<Record<string, string>>({
+    '2026-05-07': '프로젝트 마감일',
+    '2026-05-15': '친구 생일 🎂',
+    '2026-05-20': '전시회 관람'
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,6 +52,12 @@ export function SchedulePage() {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   
+  const currentYear = viewDate.getFullYear();
+  const currentMonth = viewDate.getMonth(); // 0-11
+  
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // 0 (Sun) - 6 (Sat)
+
   const [formData, setFormData] = useState<Partial<Schedule>>({
     title: '',
     date: '2026-05-07',
@@ -71,15 +81,15 @@ export function SchedulePage() {
 
   const selectedDaySchedules = useMemo(() => {
     if (selectedDay === null) return [];
-    const dateStr = `2026-05-${selectedDay.toString().padStart(2, '0')}`;
-    const dayOfWeek = (selectedDay + 4) % 7; 
+    const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${selectedDay.toString().padStart(2, '0')}`;
+    const dayOfWeek = new Date(currentYear, currentMonth, selectedDay).getDay();
     
     return schedules.filter(s => {
       if (s.type === 'schedule') return s.date === dateStr;
       if (s.type === 'routine') return s.repeatDays?.includes(dayOfWeek);
       return false;
     }).sort((a, b) => a.startTime.localeCompare(b.startTime));
-  }, [schedules, selectedDay]);
+  }, [schedules, selectedDay, currentYear, currentMonth]);
 
   const routineSchedules = useMemo(() => {
     return schedules.filter(s => s.type === 'routine').sort((a, b) => a.startTime.localeCompare(b.startTime));
@@ -88,6 +98,14 @@ export function SchedulePage() {
   const majorSchedules = useMemo(() => {
     return schedules.filter(s => s.isFavorite && s.type === 'schedule').sort((a, b) => a.startTime.localeCompare(b.startTime));
   }, [schedules]);
+
+  const handlePrevMonth = () => {
+    setViewDate(new Date(currentYear, currentMonth - 1, 1));
+  };
+
+  const handleNextMonth = () => {
+    setViewDate(new Date(currentYear, currentMonth + 1, 1));
+  };
 
   const handleOpenAddModal = (dateStr?: string) => {
     setEditingId(null);
@@ -153,7 +171,8 @@ export function SchedulePage() {
   };
 
   const updateCalendarNote = (day: number, note: string) => {
-    setCalendarNotes({ ...calendarNotes, [day]: note });
+    const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    setCalendarNotes({ ...calendarNotes, [dateStr]: note });
   };
 
   const ScheduleCard = ({ item, showCheck = true }: { item: Schedule; showCheck?: boolean }) => (
@@ -231,6 +250,40 @@ export function SchedulePage() {
         </button>
       </header>
 
+      {/* Gemini AI Insights */}
+      <section className="relative overflow-hidden studio-card !p-0 border-none bg-gradient-to-r from-indigo-600/10 via-purple-500/10 to-indigo-600/10 dark:from-indigo-500/20 dark:via-purple-500/20 dark:to-indigo-500/20">
+        <div className="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-3xl -z-10" />
+        <div className="relative p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-500/30 shrink-0 animate-pulse">
+            <SparklesIcon size={32} />
+          </div>
+          <div className="flex-grow space-y-2 text-center md:text-left">
+            <h3 className="text-xl font-black tracking-tight text-indigo-600 dark:text-indigo-400 flex items-center justify-center md:justify-start gap-2">
+              Gemini AI Insights
+              <span className="px-2 py-0.5 bg-indigo-500/10 rounded-md text-[10px] font-black uppercase tracking-widest">Premium</span>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3 bg-white/50 dark:bg-black/30 p-4 rounded-2xl border border-white/50 dark:border-white/10">
+                <div className="w-8 h-8 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0 mt-1">
+                  <ClockIcon size={16} />
+                </div>
+                <p className="text-sm font-bold leading-relaxed text-gray-700 dark:text-gray-300">
+                  오후 2시 <span className="text-indigo-600 dark:text-indigo-400">졸업 프로젝트 회의</span> 장소 주변이 평소보다 혼잡합니다. 15분 일찍 출발하시는 것을 권장합니다.
+                </p>
+              </div>
+              <div className="flex items-start gap-3 bg-white/50 dark:bg-black/30 p-4 rounded-2xl border border-white/50 dark:border-white/10">
+                <div className="w-8 h-8 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0 mt-1">
+                  <ActivityIcon size={16} />
+                </div>
+                <p className="text-sm font-bold leading-relaxed text-gray-700 dark:text-gray-300">
+                  저녁부터 기온이 <span className="text-blue-600 dark:text-blue-400">3도 이상</span> 떨어질 예정입니다. 퇴근길을 위해 따뜻한 겉옷을 챙기시는 것이 좋겠습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
         <div className="xl:col-span-2 studio-card h-full">
           <div className="flex items-center justify-between mb-10">
@@ -238,11 +291,21 @@ export function SchedulePage() {
               <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-500">
                 <CalendarIcon size={24} />
               </div>
-              2026년 5월
+              {currentYear}년 {currentMonth + 1}월
             </h3>
             <div className="flex gap-2 bg-gray-50 dark:bg-[#111] p-1.5 rounded-2xl border border-gray-100 dark:border-[#1a1a1a]">
-              <button className="px-4 py-2 hover:bg-white dark:hover:bg-[#1a1a1a] rounded-xl font-bold transition-all text-sm">이전</button>
-              <button className="px-4 py-2 hover:bg-white dark:hover:bg-[#1a1a1a] rounded-xl font-bold transition-all text-sm">다음</button>
+              <button 
+                onClick={handlePrevMonth}
+                className="px-4 py-2 hover:bg-white dark:hover:bg-[#1a1a1a] rounded-xl font-bold transition-all text-sm"
+              >
+                이전
+              </button>
+              <button 
+                onClick={handleNextMonth}
+                className="px-4 py-2 hover:bg-white dark:hover:bg-[#1a1a1a] rounded-xl font-bold transition-all text-sm"
+              >
+                다음
+              </button>
             </div>
           </div>
           
@@ -250,14 +313,21 @@ export function SchedulePage() {
             {DAYS.map((day, idx) => (
               <div key={day} className={`text-[0.65rem] font-black uppercase tracking-widest py-4 ${idx === 0 ? 'text-red-500' : 'text-gray-400'}`}>{day}</div>
             ))}
-            {Array.from({ length: 31 }).map((_, i) => {
+            
+            {/* Empty slots for the first week */}
+            {Array.from({ length: firstDayOfMonth }).map((_, i) => (
+              <div key={`empty-${i}`} className="aspect-square" />
+            ))}
+
+            {Array.from({ length: daysInMonth }).map((_, i) => {
               const day = i + 1;
-              const isToday = day === 7;
-              const dayOfWeek = (i + 5) % 7; 
+              const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+              const isToday = dateStr === '2026-05-07'; // Mock today
+              const dayOfWeek = (i + firstDayOfMonth) % 7; 
               const isSunday = dayOfWeek === 0;
-              const holidayName = HOLIDAYS_2026_05[day];
+              const holidayName = currentMonth === 4 ? HOLIDAYS_2026_05[day] : null; // Only May 2026 has holidays for now
               const isHoliday = !!holidayName || isSunday;
-              const note = calendarNotes[day];
+              const note = calendarNotes[dateStr];
 
               return (
                 <div 
@@ -282,7 +352,7 @@ export function SchedulePage() {
                       </span>
                     )}
                   </div>
-                  {(day === 7 || day === 12 || day === 20) && (
+                  {(day === 7 || day === 12 || day === 20) && currentMonth === 4 && (
                     <div className="flex gap-1">
                       <div className={`w-1.5 h-1.5 rounded-full ${isToday ? 'bg-white/50' : 'bg-indigo-500'}`}></div>
                     </div>
@@ -347,12 +417,14 @@ export function SchedulePage() {
             <header className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-indigo-500 text-white rounded-2xl flex flex-col items-center justify-center shadow-lg shadow-indigo-500/20">
-                  <span className="text-[0.6rem] font-black uppercase tracking-tighter opacity-70">MAY</span>
+                  <span className="text-[0.6rem] font-black uppercase tracking-tighter opacity-70">
+                    {new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(currentYear, currentMonth, 1)).toUpperCase()}
+                  </span>
                   <span className="text-2xl font-black">{selectedDay}</span>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black tracking-tight">2026년 5월 {selectedDay}일</h3>
-                  <p className="text-gray-400 font-bold text-sm uppercase tracking-widest">{DAYS[(selectedDay + 4) % 7]}요일 일정</p>
+                  <h3 className="text-2xl font-black tracking-tight">{currentYear}년 {currentMonth + 1}월 {selectedDay}일</h3>
+                  <p className="text-gray-400 font-bold text-sm uppercase tracking-widest">{DAYS[new Date(currentYear, currentMonth, selectedDay).getDay()]}요일 일정</p>
                 </div>
               </div>
               <button 
@@ -368,7 +440,7 @@ export function SchedulePage() {
               <label className="block text-[0.65rem] font-black text-gray-400 mb-3 uppercase tracking-widest">오늘의 메모/기념일</label>
               <input 
                 type="text"
-                value={calendarNotes[selectedDay] || ''}
+                value={calendarNotes[`${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${selectedDay.toString().padStart(2, '0')}`] || ''}
                 onChange={(e) => updateCalendarNote(selectedDay, e.target.value)}
                 placeholder="예: 영희 생일, 프로젝트 마감..."
                 className="w-full bg-white dark:bg-[#111] border border-gray-100 dark:border-[#222] rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 transition-all font-bold"

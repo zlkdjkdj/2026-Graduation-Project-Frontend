@@ -6,16 +6,16 @@
 //            className prop으로 border, glow 등의 추가 스타일을 받는다.
 // CardTitle: 카드 내부 제목 컴포넌트. 선택적으로 아이콘을 좌측에 표시한다.
 // ============================================================
-import type { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 /**
  * 공통 카드 래퍼
  * @param className - 추가 Tailwind 클래스 (border-t-4, glow-indigo 등)
  */
-export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function Card({ children, className = '', ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     // studio-card: index.css에 정의된 카드 기본 스타일 (bg, border, rounded, shadow 등)
-    <div className={`studio-card ${className}`}>
+    <div className={`studio-card ${className}`} {...props}>
       {children}
     </div>
   );

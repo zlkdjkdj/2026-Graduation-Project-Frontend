@@ -9,7 +9,7 @@
 //   BodyCompositionBox    - 체중/체지방률/골격근량 바이오메트릭 입력 카드
 //   ExerciseDashboardBox  - 근성장 속도 막대 차트 + 퍼포먼스 인덱스 대시보드
 // ============================================================
-import { SparklesIcon, DumbbellIcon, TargetIcon, TrendIcon, PlayCircleIcon, EditIcon } from '../../ui/Icons';
+import { SparklesIcon, DumbbellIcon, TargetIcon, TrendIcon, PlayCircleIcon } from '../../ui/Icons';
 import { Card, CardTitle } from '../../common/Card';
 import { InfoCard } from '../../common/InfoCard';
 import { FieldInput } from '../../common/FieldInput';
@@ -68,7 +68,7 @@ export function AiExerciseGuideBox() {
     <Card className="flex flex-col h-full border-t-4 border-rose-500">
       <CardTitle icon={<SparklesIcon size={18} />}>AI 운동 제안</CardTitle>
       <p className="text-[0.65rem] font-medium text-gray-400 mb-6 px-1 leading-relaxed">
-        * 기록된 식단, 신체 바이오메트릭, 트레이닝 로그를 종합적으로 통계 분석하여 최적의 운동 솔루션을 제안합니다.
+        * 기록된 식단, 신체 기록, 트레이닝 로그를 종합적으로 통계 분석하여 최적의 운동 솔루션을 제안합니다.
       </p>
       <div className="space-y-6 flex-grow flex flex-col justify-center">
         <InfoCard icon={<DumbbellIcon size={20} />} title="최적화 제안" text="삼두 볼륨이 부족합니다. 중량 딥스 3세트 추가를 권장합니다." iconColor="text-rose-500" hoverBg="hover:bg-rose-50 dark:hover:bg-rose-950/20" />

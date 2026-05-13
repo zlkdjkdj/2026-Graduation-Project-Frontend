@@ -40,10 +40,44 @@ export const ThumbsUpIcon = (props: IconProps) => <svg width="14" height="14" fi
 export const TrophyIcon = (props: IconProps) => <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17M14 14.66V17M18 2H6v7a6 6 0 0 0 12 0V2zM12 17v3M12 22v-2"/></svg>;
 export const SearchIcon = (props: IconProps) => <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
 
-// Reward Icons
+// Reward Icons (SVG)
 export const BicycleIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg>;
 export const MotorcycleIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="7" cy="15" r="5"/><circle cx="18" cy="15" r="5"/><path d="M5 10l5-3h4l5 3M10 7v3h4V7"/></svg>;
 export const CarIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>;
 export const HelicopterIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="m3 10 18-3M7 9v3M12 8v4M17 8v4M2 13h20l-3 4H5l-3-4zM8 17v3M16 17v3M6 20h12"/></svg>;
 export const PlaneIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5s-2.5 0-4.5 1.5L13 8.5 4.8 6.7c-2.2-.5-3.8 1.1-3.3 3.3L9.7 12l-5 5-2.2-.5c-1.1-.2-1.8.5-1.5 1.5L2.5 21l3.5.5c1 .3 1.7-.4 1.5-1.5l-.5-2.2 5-5 2 8.2c.5 2.2 2.1 3.8 4.3 3.3z"/></svg>;
 export const RocketIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3M19 9l-2 2"/><path d="M11.5 11.5 10 13c-1.17 1.17-2.04 2.66-2.5 4.3l-.5 1.7 1.7-.5c1.64-.46 3.13-1.33 4.3-2.5l1.5-1.5M15 9l-1.1-1.1c-.24-.24-.46-.51-.67-.79C12.06 5.56 12 4 12 4s1.56.06 3.11 1.23c.28.21.55.43.79.67L17 7M20 4c1 1-1.5 5-3.5 7s-6 4.5-7 3.5 1.5-5 3.5-7 6-4.5 7-3.5z"/></svg>;
+export const ChevronDownIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><polyline points="6 9 12 15 18 9"/></svg>;
+export const MenuIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
+export const LayersIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>;
+export const SmartphoneIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>;
+
+// ------------------------------------------------------------------
+//  BadgeIcon – Placeholder (using SparklesIcon)
+// ------------------------------------------------------------------
+export const BadgeIcon = ({ level, size = 32 }: { level: string; size?: number }) => {
+  return (
+    <div 
+      className={`rounded-lg flex items-center justify-center bg-gray-100 dark:bg-[#1a1a1a] text-gray-400`}
+      style={{ width: size, height: size }}
+    >
+      <SparklesIcon size={size ? Number(size) * 0.6 : 20} />
+    </div>
+  );
+};
+
+// ------------------------------------------------------------------
+//  RewardIcon – Placeholder (using TrophyIcon)
+// ------------------------------------------------------------------
+export const RewardIcon = ({ index, size = 40 }: { index: number; size?: number }) => {
+  return (
+    <div 
+      className={`rounded-xl flex items-center justify-center bg-gray-50 dark:bg-[#111] text-indigo-500`}
+      style={{ width: size, height: size }}
+    >
+      <TrophyIcon size={size ? Number(size) * 0.6 : 24} />
+    </div>
+  );
+};
+
+
