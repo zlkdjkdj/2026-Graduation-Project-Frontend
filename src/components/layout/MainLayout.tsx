@@ -16,9 +16,10 @@ import {
 } from '../ui/Icons';
 
 export function MainLayout() {
-  // 기본값 false = 라이트 모드로 시작
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isStudyExpanded, setIsStudyExpanded] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState('all');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,22 +32,28 @@ export function MainLayout() {
 
   /**
    * 사이드바 단일 네비게이션 항목 컴포넌트 (인라인 정의)
-   * active 상태일 때 흑/백 배경으로 강조 표시
    */
-  const NavItem = ({ to, icon, label, active }: { to: string; icon: React.ReactNode; label: string; active: boolean }) => (
+  const NavItem = ({ to, icon, label, active, onClickOverride, hasToggle, isExpanded }: { to: string; icon: React.ReactNode; label: string; active: boolean; onClickOverride?: () => void; hasToggle?: boolean; isExpanded?: boolean }) => (
     <div
-      onClick={() => navigate(to)}
-      className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl cursor-pointer transition-all duration-300 group ${
+      onClick={() => onClickOverride ? onClickOverride() : navigate(to)}
+      className={`flex items-center justify-between px-4 py-3.5 rounded-2xl cursor-pointer transition-all duration-300 group ${
         active
           ? 'bg-black dark:bg-white text-white dark:text-black shadow-lg shadow-black/10 dark:shadow-white/10'
           : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1a1a1a]'
       } ${isSidebarCollapsed ? 'justify-center px-0 w-12 mx-auto' : ''}`}
       title={isSidebarCollapsed ? label : ''}
     >
-      <div className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-inherit' : 'text-gray-400 group-hover:text-inherit'}`}>
-        {icon}
+      <div className="flex items-center gap-4">
+        <div className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-inherit' : 'text-gray-400 group-hover:text-inherit'}`}>
+          {icon}
+        </div>
+        {!isSidebarCollapsed && <span className="text-[0.95rem] font-bold tracking-tight whitespace-nowrap">{label}</span>}
       </div>
-      {!isSidebarCollapsed && <span className="text-[0.95rem] font-bold tracking-tight whitespace-nowrap">{label}</span>}
+      {hasToggle && !isSidebarCollapsed && (
+        <div className={`transition-transform duration-300 ${isExpanded ? 'rotate-90' : ''} ${active ? 'text-inherit' : 'text-gray-400'}`}>
+          <ChevronRightIcon size={16} />
+        </div>
+      )}
     </div>
   );
 
@@ -63,9 +70,49 @@ export function MainLayout() {
 
         {/* 네비게이션 메뉴 */}
         <div className="space-y-2 flex-grow">
-          <NavItem to="/study"     icon={<BookIcon size={20} />}     label="학습 스튜디오" active={currentPath.includes('study')} />
-          <NavItem to="/exercise"  icon={<DumbbellIcon size={20} />} label="운동 랩"       active={currentPath.includes('exercise')} />
           <NavItem to="/schedule"  icon={<CalendarIcon size={20} />} label="일정 생성"     active={currentPath.includes('schedule')} />
+          <div>
+            <NavItem 
+              to="/study" 
+              icon={<BookIcon size={20} />} 
+              label="학습 스튜디오" 
+              active={currentPath.includes('study')} 
+              hasToggle={true}
+              isExpanded={isStudyExpanded}
+              onClickOverride={() => {
+                if (currentPath.includes('study')) {
+                  setIsStudyExpanded(!isStudyExpanded);
+                } else {
+                  setIsStudyExpanded(true);
+                  navigate('/study');
+                }
+              }} 
+            />
+            {/* 과목 토글 */}
+            {isStudyExpanded && !isSidebarCollapsed && (
+              <div className="ml-12 mt-2 space-y-1 overflow-hidden animate-in slide-in-from-top-2 duration-300">
+                {[
+                  { id: 'math', name: '수학' },
+                  { id: 'english', name: '영어' },
+                  { id: 'science', name: '과학' },
+                  { id: 'history', name: '역사' },
+                ].map(sub => (
+                  <div 
+                    key={sub.id}
+                    onClick={() => setSelectedSubject(sub.id)}
+                    className={`text-sm py-2 px-4 rounded-xl cursor-pointer font-medium transition-all ${
+                      selectedSubject === sub.id 
+                      ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold' 
+                      : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1a1a1a]'
+                    }`}
+                  >
+                    {sub.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <NavItem to="/exercise"  icon={<DumbbellIcon size={20} />} label="운동 랩"       active={currentPath.includes('exercise')} />
           <NavItem to="/community" icon={<UsersIcon size={20} />}   label="커뮤니티"      active={currentPath.includes('community')} />
           <NavItem to="/settings"  icon={<SettingsIcon size={20} />} label="설정"          active={currentPath.includes('settings')} />
         </div>
@@ -107,7 +154,7 @@ export function MainLayout() {
 
       {/* ── 메인 콘텐츠 영역 (라우팅된 페이지가 여기에 렌더링됨) ── */}
       <main className="flex-grow p-6 lg:p-10 pt-24 lg:pt-10 overflow-y-auto max-w-[1800px] mx-auto w-full transition-all duration-500">
-        <Outlet />
+        <Outlet context={{ selectedSubject }} />
       </main>
     </div>
   );

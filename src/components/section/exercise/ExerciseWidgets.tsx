@@ -33,7 +33,7 @@ export function ExerciseGuideBox() {
   const [active, setActive] = useState('가슴');
   return (
     <Card className="flex flex-col h-full border-t-4 border-rose-500 min-h-[500px]">
-      <CardTitle icon={<PlayCircleIcon size={18} />}>비주얼 트레이닝</CardTitle>
+      <CardTitle icon={<PlayCircleIcon size={18} />}>오늘의 운동부위 영상</CardTitle>
       <div className="flex flex-wrap gap-2 mb-8">
         {BODY_PARTS.map(p => (
           <button
@@ -66,7 +66,10 @@ export function ExerciseGuideBox() {
 export function AiExerciseGuideBox() {
   return (
     <Card className="flex flex-col h-full border-t-4 border-rose-500">
-      <CardTitle icon={<SparklesIcon size={18} />}>AI 전략 분석</CardTitle>
+      <CardTitle icon={<SparklesIcon size={18} />}>AI 운동 제안</CardTitle>
+      <p className="text-[0.65rem] font-medium text-gray-400 mb-6 px-1 leading-relaxed">
+        * 기록된 식단, 신체 바이오메트릭, 트레이닝 로그를 종합적으로 통계 분석하여 최적의 운동 솔루션을 제안합니다.
+      </p>
       <div className="space-y-6 flex-grow flex flex-col justify-center">
         <InfoCard icon={<DumbbellIcon size={20} />} title="최적화 제안" text="삼두 볼륨이 부족합니다. 중량 딥스 3세트 추가를 권장합니다." iconColor="text-rose-500" hoverBg="hover:bg-rose-50 dark:hover:bg-rose-950/20" />
         <InfoCard icon={<TargetIcon size={20} />} title="목표 분석" text="가슴 근비대 정체기입니다. 벤치프레스 중량을 2.5kg 증량하세요." iconColor="text-rose-500" hoverBg="hover:bg-rose-50 dark:hover:bg-rose-950/20" />
@@ -79,8 +82,8 @@ export function AiExerciseGuideBox() {
 export function TrainingSessionBox() {
   return (
     <Card className="h-full glow-rose border-t-4 border-rose-500 flex flex-col">
-      <CardTitle icon={<DumbbellIcon size={18} />}>트레이닝 세션 & 로그</CardTitle>
-      
+      <CardTitle icon={<DumbbellIcon size={18} />}>오늘의 운동 기록</CardTitle>
+
       <div className="space-y-6 flex-grow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
@@ -102,9 +105,9 @@ export function TrainingSessionBox() {
 
         <div className="space-y-2">
           <label className="text-[0.65rem] font-black uppercase tracking-widest text-gray-400 ml-1 block">트레이닝 노트</label>
-          <textarea 
-            placeholder="오늘의 집중도, 세트 구성, 신체 반응을 기록하세요..." 
-            className="w-full bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-[2rem] p-6 text-sm text-gray-800 dark:text-gray-200 min-h-[120px] outline-none focus:ring-2 focus:ring-rose-500 transition-all font-medium leading-relaxed resize-none" 
+          <textarea
+            placeholder="오늘의 집중도, 세트 구성, 신체 반응을 기록하세요..."
+            className="w-full bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-[2rem] p-6 text-sm text-gray-800 dark:text-gray-200 min-h-[120px] outline-none focus:ring-2 focus:ring-rose-500 transition-all font-medium leading-relaxed resize-none"
           />
         </div>
       </div>
@@ -120,7 +123,7 @@ export function TrainingSessionBox() {
 export function BodyCompositionBox() {
   return (
     <Card className="h-full border-t-4 border-rose-500">
-      <CardTitle icon={<TrendIcon size={18} />}>신체 바이오메트릭</CardTitle>
+      <CardTitle icon={<TrendIcon size={18} />}>My Body</CardTitle>
       <div className="space-y-6 mb-10">
         <FieldInput label="체중 (kg)" type="number" placeholder="0.0" step="0.1" focusColor="focus:ring-rose-500" />
         <FieldInput label="체지방률 (%)" type="number" placeholder="0.0" step="0.1" focusColor="focus:ring-rose-500" />

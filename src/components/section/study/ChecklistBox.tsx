@@ -48,7 +48,7 @@ export function ChecklistBox({ todos, setTodos }: { todos: Todo[]; setTodos: (to
 
   return (
     <Card className="h-full border-t-4 border-indigo-500">
-      <CardTitle>마일스톤</CardTitle>
+      <CardTitle>오늘의 진도</CardTitle>
       <div className="flex-grow overflow-y-auto pr-2 custom-scrollbar space-y-8 mb-6">
         {['AI 추천', '개인 일정'].map(type => {
           const isAiType = type === 'AI 추천';
@@ -74,6 +74,7 @@ export function ChecklistBox({ todos, setTodos }: { todos: Todo[]; setTodos: (to
                       )}
                     </label>
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity ml-2 shrink-0">
+                      <button onClick={() => startEdit(todo)} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors"><EditIcon size={14} /></button>
                       <button onClick={() => move(todo.id, -1)} disabled={idx === 0} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors"><ArrowUpIcon size={14} /></button>
                       <button onClick={() => move(todo.id, 1)} disabled={idx === items.length - 1} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors"><ArrowDownIcon size={14} /></button>
                       <button onClick={() => remove(todo.id)} className="p-1.5 text-gray-400 hover:text-rose-500 transition-colors"><TrashIcon size={14} /></button>

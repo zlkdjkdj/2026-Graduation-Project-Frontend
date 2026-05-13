@@ -1,6 +1,6 @@
 // ============================================================
 // pages/schedule/SchedulePage.tsx
-// 일정 생성 및 루틴 관리 페이지 (날짜 클릭 시 상세 일정 모달 추가 버전).
+// 일정 생성 및 루틴 관리 페이지 (달력 메모 기능 추가 버전).
 // ============================================================
 import React, { useState, useMemo } from 'react';
 import { 
@@ -36,6 +36,13 @@ export function SchedulePage() {
     { id: '4', title: '독서 (인문학)', date: '2026-05-07', startTime: '22:00', endTime: '23:00', type: 'routine', completed: false, repeatDays: [0, 6], isFavorite: false },
   ]);
 
+  // 달력 메모 상태 (날짜: 메모내용)
+  const [calendarNotes, setCalendarNotes] = useState<Record<number, string>>({
+    7: '프로젝트 마감일',
+    15: '친구 생일 🎂',
+    20: '전시회 관람'
+  });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDayDetailOpen, setIsDayDetailOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
@@ -54,7 +61,6 @@ export function SchedulePage() {
   const todayDateStr = '2026-05-07';
   const todayDayIndex = 4;
 
-  // 공용 데이터 필터링 로직 (오늘의 일정용)
   const todaySchedules = useMemo(() => {
     return schedules.filter(s => {
       if (s.type === 'schedule') return s.date === todayDateStr;
@@ -63,11 +69,10 @@ export function SchedulePage() {
     }).sort((a, b) => a.startTime.localeCompare(b.startTime));
   }, [schedules]);
 
-  // 선택된 날짜의 일정 필터링
   const selectedDaySchedules = useMemo(() => {
     if (selectedDay === null) return [];
     const dateStr = `2026-05-${selectedDay.toString().padStart(2, '0')}`;
-    const dayOfWeek = (selectedDay + 4) % 7; // 2026년 5월 1일 금요일(5) 기준 -> (day + 4) % 7
+    const dayOfWeek = (selectedDay + 4) % 7; 
     
     return schedules.filter(s => {
       if (s.type === 'schedule') return s.date === dateStr;
@@ -134,10 +139,6 @@ export function SchedulePage() {
     setSchedules(schedules.map(s => s.id === id ? { ...s, completed: !s.completed } : s));
   };
 
-  const toggleFavorite = (id: string) => {
-    setSchedules(schedules.map(s => s.id === id ? { ...s, isFavorite: !s.isFavorite } : s));
-  };
-
   const deleteSchedule = (id: string) => {
     setSchedules(schedules.filter(s => s.id !== id));
   };
@@ -149,6 +150,10 @@ export function SchedulePage() {
     } else {
       setFormData({ ...formData, repeatDays: [...currentDays, dayIndex].sort() });
     }
+  };
+
+  const updateCalendarNote = (day: number, note: string) => {
+    setCalendarNotes({ ...calendarNotes, [day]: note });
   };
 
   const ScheduleCard = ({ item, showCheck = true }: { item: Schedule; showCheck?: boolean }) => (
@@ -252,23 +257,29 @@ export function SchedulePage() {
               const isSunday = dayOfWeek === 0;
               const holidayName = HOLIDAYS_2026_05[day];
               const isHoliday = !!holidayName || isSunday;
+              const note = calendarNotes[day];
 
               return (
                 <div 
                   key={i} 
                   onClick={() => handleDayClick(day)}
-                  className={`aspect-square p-3 rounded-[1.5rem] border transition-all cursor-pointer flex flex-col items-start justify-between group relative
+                  className={`aspect-square p-3 rounded-[1.5rem] border transition-all cursor-pointer flex flex-col items-start justify-between group relative overflow-hidden
                     ${isToday 
                       ? 'bg-black dark:bg-white border-black dark:border-white shadow-2xl shadow-indigo-500/20 scale-105 z-10' 
                       : 'bg-transparent border-gray-50 dark:border-[#111] hover:bg-gray-50 dark:hover:bg-[#0a0a0a] hover:border-gray-200 dark:hover:border-[#222]'}
                   `}
                 >
-                  <div className="flex flex-col">
+                  <div className="flex flex-col w-full">
                     <span className={`text-base font-black ${isToday ? 'text-white dark:text-black' : isHoliday ? 'text-red-500' : 'text-gray-900 dark:text-gray-100 opacity-60 group-hover:opacity-100'}`}>
                       {day}
                     </span>
                     {holidayName && (
                       <span className="text-[8px] font-black text-red-400 truncate w-full">{holidayName}</span>
+                    )}
+                    {note && (
+                      <span className={`text-[9px] font-bold mt-1 truncate w-full px-1.5 py-0.5 rounded-md ${isToday ? 'bg-white/20 text-white' : 'bg-indigo-500/10 text-indigo-500'}`}>
+                        {note}
+                      </span>
                     )}
                   </div>
                   {(day === 7 || day === 12 || day === 20) && (
@@ -352,13 +363,26 @@ export function SchedulePage() {
               </button>
             </header>
 
-            <div className="space-y-4 max-h-[500px] overflow-y-auto pr-4 custom-scrollbar">
+            {/* 달력 메모 입력 영역 */}
+            <div className="mb-8 p-6 bg-gray-50 dark:bg-[#050505] rounded-3xl border border-gray-100 dark:border-[#1a1a1a]">
+              <label className="block text-[0.65rem] font-black text-gray-400 mb-3 uppercase tracking-widest">오늘의 메모/기념일</label>
+              <input 
+                type="text"
+                value={calendarNotes[selectedDay] || ''}
+                onChange={(e) => updateCalendarNote(selectedDay, e.target.value)}
+                placeholder="예: 영희 생일, 프로젝트 마감..."
+                className="w-full bg-white dark:bg-[#111] border border-gray-100 dark:border-[#222] rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 transition-all font-bold"
+              />
+            </div>
+
+            <div className="space-y-4 max-h-[400px] overflow-y-auto pr-4 custom-scrollbar">
+              <h4 className="text-[0.65rem] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">상세 일정 목록</h4>
               {selectedDaySchedules.length > 0 ? (
                 selectedDaySchedules.map(item => <ScheduleCard key={item.id} item={item} />)
               ) : (
-                <div className="py-20 text-center">
-                  <CalendarIcon size={48} className="mx-auto text-gray-100 dark:text-[#111] mb-4" />
-                  <p className="text-gray-400 font-bold">이날 예정된 일정이 없습니다.</p>
+                <div className="py-10 text-center">
+                  <CalendarIcon size={32} className="mx-auto text-gray-100 dark:text-[#111] mb-4" />
+                  <p className="text-gray-400 font-bold text-sm">이날 예정된 일정이 없습니다.</p>
                 </div>
               )}
             </div>

@@ -13,15 +13,19 @@ import type { Todo } from '../../../types';
 import { SparklesIcon, UploadIcon } from '../../ui/Icons';
 import { Card, CardTitle } from '../../common/Card';
 
-export function SyllabusBox({ onGenerate }: { onGenerate: (items: Todo[]) => void }) {
-  const [start, setStart] = useState('');
-  const [end, setEnd] = useState('');
+export function SyllabusBox({ onGenerate, initialStart = '', initialEnd = '' }: { 
+  onGenerate: (items: Todo[], start?: string, end?: string) => void;
+  initialStart?: string;
+  initialEnd?: string;
+}) {
+  const [start, setStart] = useState(initialStart);
+  const [end, setEnd] = useState(initialEnd);
   return (
     <Card className="glow-indigo h-full border-t-4 border-indigo-500">
-      <CardTitle icon={<SparklesIcon size={18} />}>강의 계획서</CardTitle>
+      <CardTitle icon={<SparklesIcon size={18} />}>AI 자동 진도 제공</CardTitle>
       <div className="mb-8 border-2 border-dashed border-gray-100 dark:border-[#1a1a1a] bg-gray-50/30 dark:bg-[#050505] rounded-3xl p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-100 dark:hover:bg-[#0a0a0a] transition-all group">
         <UploadIcon size={32} className="text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
-        <p className="mt-4 text-sm font-bold text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">강의 계획서 이미지 업로드</p>
+        <p className="mt-4 text-sm font-bold text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">목차 이미지 업로드</p>
       </div>
       <div className="space-y-4 mb-8">
         {([['시작일', start, setStart], ['종료일', end, setEnd]] as const).map(([label, val, setter]) => (
@@ -32,7 +36,7 @@ export function SyllabusBox({ onGenerate }: { onGenerate: (items: Todo[]) => voi
         ))}
       </div>
       <button
-        onClick={() => onGenerate([{ id: Date.now().toString(), text: 'AI가 생성한 학습 로드맵입니다.', completed: false, isAi: true }])}
+        onClick={() => onGenerate([{ id: Date.now().toString(), text: 'AI가 생성한 학습 로드맵입니다.', completed: false, isAi: true }], start, end)}
         className="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl text-sm font-black active:scale-95 transition-all shadow-xl shadow-indigo-500/10"
       >
         AI 로드맵 생성

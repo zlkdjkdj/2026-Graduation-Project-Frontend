@@ -7,6 +7,7 @@ import { MainLayout } from '../components/layout/MainLayout';
 import { StudyPage } from '../pages/study/StudyPage';
 import { ExercisePage } from '../pages/exercise/ExercisePage';
 import { SchedulePage } from '../pages/schedule/SchedulePage';
+import { CommunityPage } from '../pages/community/CommunityPage';
 import { EmptyPage } from '../pages/home/EmptyPage';
 import { Home } from '../pages/home/home';
 
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
       { path: 'study',     element: <StudyPage /> },
       { path: 'exercise',  element: <ExercisePage /> },
       { path: 'schedule',  element: <SchedulePage /> },
-      { path: 'community', element: <EmptyPage title="커뮤니티" /> },
+      { path: 'community', element: <CommunityPage /> },
       { path: 'settings',  element: <EmptyPage title="설정" /> },
     ],
   },
