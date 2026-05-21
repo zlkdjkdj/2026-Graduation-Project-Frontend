@@ -55,7 +55,7 @@ export const SmartphoneIcon = (props: IconProps) => <svg width="18" height="18" 
 // ------------------------------------------------------------------
 //  BadgeIcon – Placeholder (using SparklesIcon)
 // ------------------------------------------------------------------
-export const BadgeIcon = ({ level, size = 32 }: { level: string; size?: number }) => {
+export const BadgeIcon = ({ level: _level, size = 32 }: { level: string; size?: number }) => {
   return (
     <div 
       className={`rounded-lg flex items-center justify-center bg-gray-100 dark:bg-[#1a1a1a] text-gray-400`}
@@ -69,7 +69,7 @@ export const BadgeIcon = ({ level, size = 32 }: { level: string; size?: number }
 // ------------------------------------------------------------------
 //  RewardIcon – Placeholder (using TrophyIcon)
 // ------------------------------------------------------------------
-export const RewardIcon = ({ index, size = 40 }: { index: number; size?: number }) => {
+export const RewardIcon = ({ index: _index, size = 40 }: { index: number; size?: number }) => {
   return (
     <div 
       className={`rounded-xl flex items-center justify-center bg-gray-50 dark:bg-[#111] text-indigo-500`}
