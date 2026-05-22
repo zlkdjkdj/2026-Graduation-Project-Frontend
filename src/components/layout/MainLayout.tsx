@@ -138,7 +138,7 @@ export function MainLayout() {
     <div className="gemini-bg min-h-screen text-gray-900 dark:text-[#ededed] flex flex-col transition-colors duration-500 font-sans selection:bg-indigo-500/30">
       
       {/* ── 상단 헤더바 (Floating Glassmorphism) ── */}
-      <header className="sticky top-4 z-50 max-w-[1800px] w-[calc(100%-2rem)] lg:w-[calc(100%-5rem)] mx-auto bg-white/60 dark:bg-black/40 backdrop-blur-3xl border border-white/40 dark:border-white/10 rounded-full shadow-xl shadow-gray-200/50 dark:shadow-black/50 transition-all duration-500">
+      <header className="sticky top-4 z-50 max-w-[1800px] w-[calc(100%-2rem)] lg:w-[calc(100%-5rem)] mx-auto bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl border border-white/40 dark:border-slate-800/60 rounded-full shadow-xl shadow-gray-200/50 dark:shadow-black/50 transition-all duration-500">
         <div className="px-6 lg:px-8 h-16 flex items-center justify-between">
           
           {/* 로고 영역 */}
@@ -170,7 +170,7 @@ export function MainLayout() {
               />
               {/* 학습 스튜디오 과목 드롭다운 */}
               {isStudyExpanded && (
-                <div className="absolute top-full left-0 mt-3 w-48 bg-white/80 dark:bg-black/60 backdrop-blur-3xl border border-white/40 dark:border-white/10 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-black/50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                <div className="absolute top-full left-0 mt-3 w-48 bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl border border-white/40 dark:border-slate-800/60 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-black/50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 z-50">
                   {[
                     { id: 'math', name: '수학' },
                     { id: 'english', name: '영어' },
@@ -220,7 +220,7 @@ export function MainLayout() {
 
               {/* 알림 드롭다운 창 */}
               {isNotificationOpen && (
-                <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white/80 dark:bg-black/60 backdrop-blur-3xl border border-white/40 dark:border-white/10 rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl border border-white/40 dark:border-slate-800/60 rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 z-50">
                   {/* 알림 헤더 */}
                   <div className="px-5 py-4 border-b border-gray-100 dark:border-[#1a1a1a] flex items-center justify-between bg-gray-50/50 dark:bg-[#0e0e0e]/50">
                     <div className="flex items-center gap-2">
@@ -336,7 +336,7 @@ export function MainLayout() {
 
         {/* 모바일 네비게이션 드롭다운 (lg 미만) */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-2 mx-4 bg-white/80 dark:bg-black/60 backdrop-blur-3xl border border-white/40 dark:border-white/10 rounded-3xl shadow-2xl px-6 py-4 flex flex-col gap-2 animate-in slide-in-from-top-2 duration-300">
+          <div className="lg:hidden mt-2 mx-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl border border-white/40 dark:border-slate-800/60 rounded-3xl shadow-2xl px-6 py-4 flex flex-col gap-2 animate-in slide-in-from-top-2 duration-300">
             <NavItem to="/main/schedule" icon={<CalendarIcon size={18} />} label="일정 생성" active={currentPath.includes('schedule')} />
             
             <NavItem 

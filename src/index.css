@@ -16,11 +16,58 @@
     --brand-primary: #000000;
   }
   .dark {
-    --bg-main: #000000;
-    --bg-card: #09090b;
-    --text-main: #ededed;
-    --border-main: #1a1a1a;
+    --bg-main: #090c15;    /* Deep premium navy-slate, much richer and easier on the eyes */
+    --bg-card: #131929;    /* Lighter navy-slate card background for visual hierarchy */
+    --text-main: #f1f5f9;  /* Crisp off-white (slate-100) */
+    --border-main: #222c42; /* Defined dark slate border (slate-800) */
     --brand-primary: #ffffff;
+  }
+
+  /* Global dark mode overrides to clean up hardcoded dark backgrounds and borders */
+  .dark .bg-white {
+    background-color: var(--bg-card) !important;
+  }
+  .dark .bg-gray-50 {
+    background-color: #0d121f !important;
+  }
+  .dark .bg-gray-50\/50 {
+    background-color: rgba(9, 12, 21, 0.4) !important;
+  }
+  .dark .bg-gray-100 {
+    background-color: #1e293b !important;
+  }
+  .dark .bg-\[\#050505\]\/50 {
+    background-color: rgba(9, 12, 21, 0.4) !important;
+  }
+  .dark .bg-\[\#080808\]\/50 {
+    background-color: rgba(9, 12, 21, 0.4) !important;
+  }
+  .dark .bg-\[\#0a0a0a\] {
+    background-color: var(--bg-card) !important;
+  }
+  .dark .bg-\[\#0d0d0d\] {
+    background-color: var(--bg-card) !important;
+  }
+  .dark .bg-\[\#111\] {
+    background-color: var(--bg-card) !important;
+  }
+  .dark .bg-\[\#121212\] {
+    background-color: var(--bg-card) !important;
+  }
+  .dark .border-gray-100,
+  .dark .border-gray-200,
+  .dark .border-\[\#1a1a1a\],
+  .dark .border-\[\#222\] {
+    border-color: var(--border-main) !important;
+  }
+  .dark .text-gray-600 {
+    color: #e2e8f0 !important;
+  }
+  .dark .text-gray-500 {
+    color: #cbd5e1 !important;
+  }
+  .dark .text-gray-400 {
+    color: #94a3b8 !important;
   }
   
   html, body {
@@ -50,7 +97,7 @@
 
 @layer utilities {
   .studio-card {
-    @apply relative z-10 bg-white/60 dark:bg-black/40 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-[2rem] p-8 transition-all duration-500 shadow-xl shadow-gray-200/50 dark:shadow-black/50 hover:shadow-2xl hover:-translate-y-1;
+    @apply relative z-10 bg-white/60 dark:bg-[#131929]/70 backdrop-blur-2xl border border-white/40 dark:border-slate-800/60 rounded-[2rem] p-8 transition-all duration-500 shadow-xl shadow-gray-200/50 dark:shadow-black/50 hover:shadow-2xl hover:-translate-y-1;
   }
   
   .gemini-bg {
