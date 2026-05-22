@@ -1,345 +1,115 @@
-# Learn-Time 🎓💪
+# Learn-Time 프론트엔드 프로젝트 아키텍처 및 연동 가이드
 
-> **AI 기반 학습 & 운동 통합 관리 플랫폼**
->
-> 공부와 운동 루틴을 하나의 세련된 대시보드에서 관리하는 개인화 웹 앱입니다.
-> Gemini AI와 연동 예정인 학습 로드맵 생성, 식단 추적, 운동 기록 등의 기능을 제공합니다.
+본 문서는 프로젝트의 전체 디렉토리 및 파일별 역할을 명시하고, Spring Boot 백엔드 서버와 데이터베이스 연동을 위한 가이드라인을 제공함.
 
 ---
 
-## 기술 스택
+## 1. 프로젝트 폴더 및 파일 역할 (Directory Structure & Roles)
 
-| 분류 | 기술 |
-|---|---|
-| 프레임워크 | React 19 + TypeScript |
-| 빌드 도구 | Vite |
-| 스타일링 | Tailwind CSS v4 |
-| 라우팅 | react-router-dom v7 |
-| 비동기 상태 관리 | TanStack React Query v5 |
-| HTTP 통신 | Axios |
-| 패키지 매니저 | pnpm |
-| 폰트 | Pretendard Variable |
-
----
-
-## 실행 방법
-
-```bash
-# 의존성 설치
-pnpm install
-
-# 개발 서버 실행 (http://localhost:5173)
-pnpm run dev
-
-# 타입 체크
-pnpm tsc --noEmit
-
-# 프로덕션 빌드
-pnpm run build
+### 파일 구조도 (File Structure Tree)
+```text
+📦 2026-Graduation-Project-Frontend
+ ┣ 📂 src
+ ┃ ┣ 📂 api            # 서버 통신 및 Axios 클라이언트 설정
+ ┃ ┣ 📂 app            # 앱 진입점 및 전역 라우터(routes.tsx)
+ ┃ ┣ 📂 assets         # 이미지 등 정적 리소스
+ ┃ ┣ 📂 components     # 도메인별 섹션 및 공통 UI 위젯
+ ┃ ┣ 📂 hooks          # React Query 등 데이터 페칭용 커스텀 훅
+ ┃ ┣ 📂 pages          # 라우터에 매핑되는 메인 화면 컴포넌트
+ ┃ ┣ 📂 types          # 전역 TypeScript 인터페이스 및 응답 스펙(DTO)
+ ┃ ┣ 📜 index.css      # 전역 스타일 및 Tailwind CSS 지시어
+ ┃ ┗ 📜 main.tsx       # React 앱 렌더링 루트
+ ┣ 📜 index.html       # 최상위 HTML 문서
+ ┣ 📜 package.json     # 패키지 의존성 및 스크립트 (pnpm)
+ ┣ 📜 vite.config.ts   # Vite 빌드 및 백엔드 연동 프록시 설정
+ ┣ 📜 eslint.config.js # 코드 컨벤션(ESLint) 설정
+ ┗ 📜 tsconfig.*       # 타입스크립트 컴파일러 옵션
 ```
 
----
+### `/src` 디렉토리 상세 (애플리케이션 소스 코드)
+* **`api/`** : 서버와의 HTTP 통신을 담당하는 계층.
+  * `client.ts`: 전역 Axios 인스턴스. 타임아웃, 전역 헤더 설정, JWT 인증 인터셉터 및 에러 응답 분기 처리 등을 담당함.
+  * `exercise.ts`, `study.ts`: 운동 랩, 활동 스튜디오 등 각 도메인별 API 호출 함수가 정의되어 있으며, 서버 장애/미구동 시 렌더링할 Fallback Mock 데이터가 포함되어 있음.
+* **`app/`** : 애플리케이션의 엔트리포인트 및 글로벌 설정 영역.
+  * `App.tsx`: 전역 컨텍스트(React Query Provider 등), 라우터 진입점 및 전역 공통 UI(헤더 등)를 설정함.
+  * `routes.tsx`: React Router 기반의 라우팅 매핑 정보를 관리함.
+* **`assets/`** : 정적 리소스 파일 관리.
+  * `images/`: 앱 내에서 사용되는 각종 배지, 일러스트 이미지 리소스 보관 폴더임.
+* **`components/`** : 재사용 가능한 UI 및 비즈니스 컴포넌트 계층.
+  * `common/`: 버튼, 카드, 인풋 필드, 차트 등 전역적으로 사용되는 공통 UI 컴포넌트.
+  * `layout/`: 전체 레이아웃 (GNB, 글로벌 네비게이션 헤더 등).
+  * `section/`: 도메인 단위의 페이지를 구성하는 복합 위젯 및 모달 컴포넌트 (study, exercise, home, community 등 도메인별 분리).
+  * `ui/`: 아이콘(`Icons.tsx`) 등 최소 단위 프리젠테이셔널 요소.
+* **`hooks/`** : 공용 커스텀 훅.
+  * `queries/`: React Query (TanStack Query)를 활용한 서버 상태 페칭 커스텀 훅 모음 (`useStudyReport.ts`, `useExerciseReport.ts` 등).
+* **`pages/`** : 라우터에 매핑되는 메인 페이지 단위의 화면 컴포넌트.
+  * `home.tsx`, `StudyPage.tsx`, `ExercisePage.tsx`, `CommunityPage.tsx`, `SchedulePage.tsx`, `EmptyPage.tsx`
+* **`types/`** : 전역 타입스크립트 인터페이스 (DTO, 응답 타입, 비즈니스 모델).
+  * `index.ts`: 모델의 인터페이스 및 API Response 스펙 정의.
+* **`index.css`** : Tailwind CSS 지시어 설정 및 글로벌 CSS, Pretendard 폰트 룰을 정의함.
+* **`main.tsx`** : React 앱의 루트 렌더러 (Virtual DOM 렌더링 진입점).
 
-## 폴더 구조 및 각 파일의 역할
-
-```
-src/
-├── api/                          # REST API 클라이언트 모음
-│   ├── client.ts                 # Axios 인스턴스 설정 (Bearer JWT 주입, 공통 에러 핸들링)
-│   └── study.ts                  # 학습(Todo) API 엔드포인트 통신 모듈
-│
-├── app/                          # 앱 진입점 및 라우터 설정
-│   ├── App.tsx                   # QueryClient 및 RouterProvider 설정 루트 컴포넌트
-│   └── routes.tsx                # 클라이언트 사이드 라우팅 정의
-│
-├── components/
-│   ├── common/                   # 재사용되는 공통 UI
-│   │   ├── BarChart.tsx          # 세로 막대 차트 (인터랙션 포함)
-│   │   ├── Button.tsx            # 공통 버튼 컴포넌트
-│   │   ├── Card.tsx              # 카드 프레임 및 카드 타이틀
-│   │   ├── FieldInput.tsx        # 레이블 포함 입력 필드
-│   │   ├── InfoCard.tsx          # 수평 정보 카드
-│   │   ├── Input.tsx             # 기본 인풋 필드
-│   │   └── ProgressBar.tsx       # 진행률 바
-│   │
-│   ├── layout/
-│   │   └── MainLayout.tsx        # 전체 레이아웃 (상단 헤더바 + 알림/테마 토글 + 서브 라우트 컨테이너)
-│   │
-│   ├── section/                  # 각 페이지별 핵심 전용 섹션 컴포넌트
-│   │   ├── home/                 # 랜딩 페이지(/home) 전용 컴포넌트
-│   │   │   ├── HomeHeader.tsx    # 랜딩 페이지 상단 헤더
-│   │   │   ├── HomeFooter.tsx    # 랜딩 페이지 하단 푸터
-│   │   │   ├── section/          # 랜딩 페이지 본문 섹션 (Hero, Mode, Preview, Gamification, CTA)
-│   │   │   └── preview/          # 기능 프리뷰 컴포넌트 (Study, Health, Calendar, Community, MobileMockup)
-│   │   │
-│   │   ├── study/                # 학습 스튜디오 전용 섹션 컴포넌트
-│   │   │   ├── index.ts          # 배럴 익스포트
-│   │   │   ├── SyllabusBox.tsx   # 강의계획서 업로드 + AI 로드맵 생성
-│   │   │   ├── ChecklistBox.tsx  # 학습 마일스톤 체크리스트
-│   │   │   ├── StopwatchBox.tsx  # 학습 시간 측정 스톱워치
-│   │   │   ├── StudyReportModal.tsx # 공부 기록 요약 분석 리포트 모달 [NEW]
-│   │   │   └── StudyWidgets.tsx  # StudyRecordBox, LearningStrategyBox, DashboardBox 등
-│   │   │
-│   │   ├── exercise/             # 운동 랩 전용 섹션 컴포넌트
-│   │   │   ├── index.ts          # 배럴 익스포트
-│   │   │   ├── ExerciseRecordBox.tsx  # 운동 기록 및 사진 업로드
-│   │   │   ├── DietBox.tsx            # 식단 관리 (아침/점심/저녁 탭, 칼로리 합산)
-│   │   │   └── ExerciseWidgets.tsx    # GuideBox, AiGuideBox, BodyCompositionBox 등
-│   │   │
-│   │   ├── schedule/             # 일정 생성 전용 섹션 컴포넌트
-│   │   │   ├── index.ts          # 배럴 익스포트
-│   │   │   ├── CalendarBox.tsx        # 메인 캘린더 컴포넌트
-│   │   │   ├── ScheduleLists.tsx      # 일정 목록 및 상태 필터링
-│   │   │   ├── AiInsightsBox.tsx      # AI 루틴 추천 및 통계 인사이트
-│   │   │   └── ScheduleModal.tsx      # 일정 추가/수정 모달
-│   │   │
-│   │   └── community/            # 커뮤니티 전용 섹션 컴포넌트
-│   │       ├── index.ts          # 배럴 익스포트
-│   │       ├── CommunityHeader.tsx    # 커뮤니티 검색 및 헤더
-│   │       ├── PostCard.tsx           # 게시글 카드 컴포넌트
-│   │       ├── PostDetailModal.tsx    # 게시글 상세 및 댓글 모달
-│   │       ├── GlobalRankingBox.tsx   # 유저 랭킹 보드
-│   │       └── RewardMilestoneBox.tsx # 등급별 리워드 시각화
-│   │
-│   └── ui/
-│       └── Icons.tsx             # SVG 인라인 아이콘 컴포넌트 모음
-│
-├── hooks/
-│   │   └── queries/                  # TanStack React Query 커스텀 훅 모음
-│   │       ├── useTodos.ts           # Todo 데이터 조회/생성/수정/삭제 캐싱 및 낙관적 업데이트 관리
-│   │       └── useStudyReport.ts     # 공부 기록 분석 리포트 캐싱 및 비동기 상태 관리 [NEW]
-│
-├── pages/                        # 각 라우트별 진입점 컴포넌트
-│   ├── home.tsx                  # 서비스 메인 랜딩 페이지 (/home)
-│   ├── StudyPage.tsx             # 학습 스튜디오 대시보드 페이지 (/main/study)
-│   ├── ExercisePage.tsx          # 운동 랩 대시보드 페이지 (/main/exercise)
-│   ├── SchedulePage.tsx          # 일정 생성 대시보드 페이지 (/main/schedule)
-│   ├── CommunityPage.tsx         # 커뮤니티 메인 페이지 (/main/community)
-│   └── EmptyPage.tsx             # 임시 페이지 (로그인, 회원가입, 설정 등)
-│
-├── types/
-│   └── index.ts                  # 전역 TypeScript 공통 타입 및 API 응답 DTO 규격 정의
-│
-├── index.css                     # Tailwind v4 설정 + 전역 디자인 토큰 및 클래스
-└── main.tsx                      # QueryClient 제공자 설정 및 React DOM 마운트
-```
-
-### 📁 dist 폴더의 역할
-
-
-* **최종 빌드 결과물 저장**: `pnpm run build` 실행 시 TypeScript(`.tsx`), Tailwind CSS 등을 브라우저가 직접 해석할 수 있는 일반 HTML, CSS, JS 파일로 컴파일하여 `dist` 폴더에 생성
-* **성능 및 용량 최적화**: 공백, 주석 등을 제거하는 압축(Minify) 과정과 파일들을 하나로 묶는 번들링(Bundling)을 진행합니다. 브라우저 캐싱 문제를 방지하기 위해 파일명 뒤에 고유한 해시값(예: `index-CgmH3h1O.js`)이 추가
-* **실제 배포 대상**: Vercel, Netlify, AWS S3 등의 호스팅 서버에 배포할 때는 프로젝트 전체가 아닌 이 `dist` 폴더 내의 완성된 정적 파일들만 배포
-* **버전 관리 제외**: 빌드 명령어 실행 시마다 동적으로 생성 및 갱신되므로 `.gitignore`에 등록하여 Git 레포지토리 관리 대상에서 제외
+### 기타 최상위 파일
+* **`package.json` / `pnpm-lock.yaml`** : 프로젝트 의존성 모듈 목록 및 스크립트 (pnpm 패키지 매니저 사용).
+* **`vite.config.ts`** : Vite 빌드 설정 파일. 로컬 개발 환경에서 CORS 회피용 프록시(`Proxy`)를 설정함.
+* **`eslint.config.js`** : ESLint 정적 분석 포매팅 룰 설정.
+* **`tsconfig.*.json`** : 타입스크립트 컴파일러(TSC) 옵션.
+* **`index.html`** : 애플리케이션의 최상단 루트 HTML 문서.
 
 ---
 
-## 페이지 및 라우팅
+## 2. 백엔드 및 DB 연동 가이드라인 (Backend & DB Integration Guide)
 
-| 경로 | 컴포넌트 | 설명 |
-|---|---|---|
-| `/` | (redirect) | `/home`으로 자동 리다이렉트 |
-| `/home` | `Home` | 서비스 메인 랜딩 페이지 |
-| `/login` | `EmptyPage` | 로그인 페이지 (준비 중) |
-| `/signup` | `EmptyPage` | 회원가입 페이지 (준비 중) |
-| `/main` | (redirect) | `/main/study`로 자동 리다이렉트 |
-| `/main/study` | `StudyPage` | 학습 스튜디오 대시보드 |
-| `/main/exercise` | `ExercisePage` | 운동 랩 대시보드 |
-| `/main/schedule` | `SchedulePage` | 일정 생성 대시보드 (캘린더 및 AI 인사이트) |
-| `/main/community` | `CommunityPage` | 커뮤니티 광장 (글 작성, 댓글, 실시간 랭킹 및 리워드) |
-| `/main/settings` | `EmptyPage` | 설정 페이지 (준비 중) |
+### 2.1 아키텍처 개요
+본 프론트엔드는 **Spring Boot** 백엔드 애플리케이션 및 **MySQL/PostgreSQL** 관계형 데이터베이스와의 연동을 전제로 설계되어 있음. API 통신은 `Axios`를 통한 REST API 방식이며, 비동기 서버 상태 관리는 `@tanstack/react-query`를 사용함.
 
----
+### 2.2 API 클라이언트 동작 원리 (`src/api/client.ts`)
+* **프록시 (Proxy)**: 개발 시 브라우저 CORS 제약을 피하기 위해 `vite.config.ts`에서 프록시를 구동함. 프론트엔드에서 `/api` 경로로 호출하면, Vite 서버가 백엔드로 요청을 중계함.
+* **타임아웃 (Timeout)**: 10,000ms(10초)로 설정되어 있음. DB 트랜잭션 지연 시 클라이언트 응답 대기 시간을 제어함.
+* **인터셉터 (Interceptors)**:
+  * **Request**: 브라우저의 `localStorage`에 저장된 `accessToken`을 읽어 매 요청마다 `Authorization: Bearer <토큰>` 헤더를 자동 주입함.
+  * **Response**:
+    * `401 Unauthorized`: JWT 토큰 만료 또는 인증 실패 발생. 로컬 스토리지의 토큰을 파기하고 재로그인 화면으로 유도하도록 처리되어 있음.
+    * `403 Forbidden`: API 리소스에 대한 접근 권한 부족 알림.
+    * `500 Internal Server Error`: DB 접근 오류, 트랜잭션 롤백 등 서버 내부 장애 시 시스템 로그 표출.
 
-## 💻 백엔드 및 DB 연동 가이드라인 (백엔드 담당자 필독)
+### 2.3 백엔드 개발 시 API 응답 스펙 준수
+프론트엔드는 통일된 JSON 구조의 응답을 기대함. 백엔드의 ResponseDto는 반드시 `src/types/index.ts`에 정의된 `ApiResponse<T>` 스펙과 일치해야 함.
 
-### 1. HTTP 통신 및 CORS 설정
-* **CORS 우회**: 로컬 개발 환경(`pnpm run dev`)에서는 `vite.config.ts` 프록시 설정을 통해 `/api` 경로의 요청을 백엔드 서버(`http://localhost:8080`)로 우회합니다.
-* **프로덕션 환경**: 배포 시 `.env.production` 파일 내의 `VITE_API_BASE_URL` 환경 변수에 백엔드 실서버 API 베이스 주소를 설정해야 합니다.
-
-### 2. 인증 및 보안 (JWT)
-* 모든 API 요청 헤더에 `Authorization: Bearer <token>` 형태로 JWT Access Token이 주입됩니다 (`src/api/client.ts` 참고).
-* 백엔드는 **Spring Security**에서 Filter 또는 Interceptor를 이용해 이 헤더를 파싱하여 검증을 거친 후 사용자를 식별해야 합니다.
-* HTTP 응답 코드 `401 Unauthorized` 발생 시 프론트엔드에서는 토큰 초기화 및 로그아웃/로그인 화면 리다이렉트를 처리합니다.
-
-### 3. 공통 API 응답 규격 (DTO)
-모든 REST 컨트롤러의 반환값은 아래 규격에 맞추어 JSON 객체로 감싸서 응답해야 합니다.
-```typescript
-export interface ApiResponse<T> {
-  status: number;    // HTTP 상태 코드 또는 서비스 전용 비즈니스 코드
-  message: string;   // 응답 메시지 (에러 혹은 성공 메시지)
-  data: T;           // 실제 본문 데이터
+```json
+{
+  "code": 200,
+  "message": "성공적으로 조회되었습니다.",
+  "data": {
+    // 실제 반환되는 리소스 페이로드
+  }
 }
 ```
 
-#### 📝 공부 기록 리포트 DTO (`StudyReport`)
-```typescript
-export interface StudyReport {
-  totalStudyTime: number;       // 총 공부 시간 (분 단위)
-  completedTodosCount: number;  // 완료한 진도 수
-  totalTodosCount: number;      // 전체 진도 수
-  weeklyStudyMinutes: number[]; // 주간 공부 시간 (월~일, 분)
-  studiedKeywords: string[];    // 공부한 핵심 키워드 리스트
-  aiFeedbackSummary: string;    // AI가 분석한 총평 및 전략 리포트
-  reportDate: string;           // 리포트 생성일
-}
-```
+### 2.4 개발 환경 연동 방법
 
-### 4. API 엔드포인트 명세
+1. **.env 환경변수 설정**
+   프론트엔드 루트 디렉토리에 `.env` 파일을 생성(또는 수정)하고 백엔드 API 주소 접두사를 설정함.
+   ```env
+   VITE_API_BASE_URL=/api
+   ```
 
-#### 📚 학습(Todo) 및 공부 기록 도메인 (`/api/study`)
-| 기능 | 메서드 | 엔드포인트 | 요청 Body / DTO | 응답 Data (T) |
-|---|---|---|---|---|
-| Todo 목록 조회 | `GET` | `/study/todos` | 없음 | `Todo[]` |
-| Todo 단건 등록 | `POST` | `/study/todos` | `CreateTodoDto` | `Todo` |
-| Todo 벌크 등록 | `POST` | `/study/todos/bulk` | `CreateTodoDto[]` | `Todo[]` |
-| Todo 수정 | `PUT` | `/study/todos/{id}` | `UpdateTodoDto` | `Todo` |
-| Todo 삭제 | `DELETE` | `/study/todos/{id}` | 없음 | 없음 (Void) |
-| 공부 기록 리포트 조회 | `GET` | `/study/report` | 없음 | `StudyReport` [NEW] |
+2. **Vite Proxy 설정 점검 (`vite.config.ts`)**
+   백엔드 서버 구동 포트(예: `localhost:8080`)에 맞춰 프록시 대상을 확인함.
+   ```typescript
+   export default defineConfig({
+     // ...
+     server: {
+       proxy: {
+         '/api': {
+           target: 'http://localhost:8080', // 백엔드 서버 주소
+           changeOrigin: true,
+         }
+       }
+     }
+   });
+   ```
 
-* **낙관적 업데이트 (Optimistic Update)**: `PUT /study/todos/{id}` 호출 시 클라이언트는 서버의 응답 이전에 UI를 우선 반영하고 실패 시 롤백합니다. 백엔드는 신속한 트랜잭션 처리 및 신뢰성 있는 DB 업데이트를 보장해야 합니다.
-
-#### 💬 커뮤니티 도메인 (`/api/community`) - 설계 대상
-* **게시판 CRUD API**: 최신 피드 리스트 페이징 조회, 게시글 상세, 게시글 등록/수정/삭제
-* **댓글 API**: 게시글별 댓글 CRUD
-* **포인트 및 리워드 API**: 랭킹 리스트 조회, 사용자 누적 포인트에 따른 리워드(모빌리티 등급) 정보 갱신
-
----
-
-### 5. DB 스키마 매핑 가이드
-
-#### A. MySQL 스키마 가이드
-```sql
--- USER 테이블 (포인트 및 랭킹 관리)
-CREATE TABLE users (
-    id VARCHAR(255) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    points INT DEFAULT 0
-);
-
--- TODO 테이블 (학습 마일스톤)
-CREATE TABLE todos (
-    id VARCHAR(255) PRIMARY KEY, -- FE에서 임시 생성된 UUID 또는 BE 생성 고유키 사용
-    text VARCHAR(255) NOT NULL,
-    completed TINYINT(1) DEFAULT 0,
-    is_ai TINYINT(1) DEFAULT 0,
-    order_index INT DEFAULT 0 -- 정렬 순서 보정용 필드 (추후 정렬 기능 활성화 시 사용)
-);
-
--- POST 테이블 (커뮤니티 게시글)
-CREATE TABLE posts (
-    id VARCHAR(255) PRIMARY KEY,
-    author_id VARCHAR(255),
-    content TEXT NOT NULL,
-    likes INT DEFAULT 0,
-    badge VARCHAR(50) DEFAULT 'bronze',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
--- COMMENT 테이블 (게시글 댓글)
-CREATE TABLE comments (
-    id VARCHAR(255) PRIMARY KEY,
-    post_id VARCHAR(255) NOT NULL,
-    author_id VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
-    FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
-);
-```
-
-#### B. Oracle DB 스키마 가이드
-```sql
--- USER 테이블
-CREATE TABLE users (
-    id VARCHAR2(255) PRIMARY KEY,
-    name VARCHAR2(100) NOT NULL,
-    points NUMBER(10) DEFAULT 0
-);
-
--- TODO 테이블
-CREATE TABLE todos (
-    id VARCHAR2(255) PRIMARY KEY,
-    text VARCHAR2(255) NOT NULL,
-    completed CHAR(1) DEFAULT 'N' CHECK (completed IN ('Y', 'N')),
-    is_ai CHAR(1) DEFAULT 'N' CHECK (is_ai IN ('Y', 'N')),
-    order_index NUMBER(6) DEFAULT 0
-);
-
--- POST 테이블
-CREATE TABLE posts (
-    id VARCHAR2(255) PRIMARY KEY,
-    author_id VARCHAR2(255) NOT NULL,
-    content CLOB NOT NULL,
-    likes NUMBER(10) DEFAULT 0,
-    badge VARCHAR2(50) DEFAULT 'bronze',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_post_user FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
--- COMMENT 테이블
-CREATE TABLE comments (
-    id VARCHAR2(255) PRIMARY KEY,
-    post_id VARCHAR2(255) NOT NULL,
-    author_id VARCHAR2(255) NOT NULL,
-    content CLOB NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_comment_post FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
-    CONSTRAINT fk_comment_user FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
-);
-```
-
----
-
-## 🎨 공통 컴포넌트 안내
-
-UI 개발 편의를 위해 `src/components/common` 디렉토리에 공통 컴포넌트들이 준비되어 있습니다. 신규 마이그레이션이나 기능 확장 시 활용할 수 있습니다.
-
-### 1. `BarChart`
-세로 막대 그래프 컴포넌트. hover 효과가 기본 장착되어 있습니다.
-```tsx
-<BarChart
-  data={[40, 70, 45, 90, 60, 85, 30]} // 퍼센트 수치 (0 ~ 100)
-  labels={['월', '화', '수', '목', '금', '토', '일']}
-  activeColor="group-hover:bg-indigo-600" // 활성 상태 막대 색상
-  labelActiveColor="group-hover:text-indigo-600"
-  height="h-[250px]"
-/>
-```
-
-### 2. `ProgressBar`
-학습률 및 통계 표현을 위한 선형 프로그레스바입니다.
-```tsx
-<ProgressBar
-  name="집중도"
-  progress={82}
-  accentColor="bg-indigo-600"
-  textColor="text-indigo-500"
-  borderHover="hover:border-indigo-300"
-/>
-```
-
-### 3. `InfoCard`
-대시보드의 수치 분석용 정보를 가독성 있게 나타낼 때 사용합니다.
-```tsx
-<InfoCard
-  icon={<TrendIcon size={20} />}
-  title="성과 분석"
-  text="현재 속도로 계속하면 계획보다 3일 일찍 완료할 수 있습니다."
-  iconColor="text-indigo-500"
-  hoverBg="hover:bg-indigo-50 dark:hover:bg-indigo-950/20"
-/>
-```
-
-### 4. `FieldInput`
-통합 레이블링과 섀도 효과가 포함된 UI 입력 필드입니다.
-```tsx
-<FieldInput
-  label="체중 (kg)"
-  type="number"
-  placeholder="0.0"
-  step="0.1"
-  focusColor="focus:ring-rose-500"
-/>
-```
+3. **에러 Fallback Mocking 활용과 제거**
+   현재 프론트엔드의 각 API 호출부(`src/api/*.ts`)의 `catch` 블록에는 **백엔드 서버가 연동되지 않은 상태에서도 화면이 렌더링되도록 Mock 더미 데이터를 반환하는 예외 처리**가 작성되어 있음.
+   * 백엔드 API 명세가 확정되고 정상 연동이 완료되면, 향후 프로덕션 빌드 이전에 해당 `catch` 블록의 Fallback 로직을 제거하거나 실제 로깅 및 에러 바운더리 핸들링 처리로 교체해야 함.
