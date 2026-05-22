@@ -134,7 +134,7 @@ export function BodyCompositionBox() {
   );
 }
 
-export function ExerciseDashboardBox() {
+export function ExerciseDashboardBox({ onViewReport }: { onViewReport?: () => void }) {
   return (
     <Card className="p-10 border-t-4 border-rose-500">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
@@ -143,7 +143,12 @@ export function ExerciseDashboardBox() {
           <p className="text-sm text-gray-500 font-medium mt-1">고정밀 신체 데이터 추적 및 분석 시스템.</p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
-          <button className="flex-1 md:flex-none text-[0.6rem] font-black uppercase tracking-[0.2em] px-8 py-4 border border-gray-100 dark:border-[#1a1a1a] rounded-2xl hover:bg-rose-50 transition-all">볼륨 리포트</button>
+          <button
+            onClick={onViewReport}
+            className="flex-1 md:flex-none text-[0.6rem] font-black uppercase tracking-[0.2em] px-8 py-4 border border-gray-100 dark:border-[#1a1a1a] rounded-2xl hover:bg-rose-50 dark:hover:bg-[#1a1a1a] transition-all cursor-pointer"
+          >
+            운동 리포트
+          </button>
           <button className="flex-1 md:flex-none text-[0.6rem] font-black uppercase tracking-[0.2em] px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl active:scale-95 transition-all shadow-xl shadow-rose-500/10">최적화 시작</button>
         </div>
       </div>

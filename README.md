@@ -77,7 +77,8 @@ src/
 │   │   │   ├── SyllabusBox.tsx   # 강의계획서 업로드 + AI 로드맵 생성
 │   │   │   ├── ChecklistBox.tsx  # 학습 마일스톤 체크리스트
 │   │   │   ├── StopwatchBox.tsx  # 학습 시간 측정 스톱워치
-│   │   │   └── StudyWidgets.tsx  # DiaryBox, AiSuggestionBox, DashboardBox 등
+│   │   │   ├── StudyReportModal.tsx # 공부 기록 요약 분석 리포트 모달 [NEW]
+│   │   │   └── StudyWidgets.tsx  # StudyRecordBox, LearningStrategyBox, DashboardBox 등
 │   │   │
 │   │   ├── exercise/             # 운동 랩 전용 섹션 컴포넌트
 │   │   │   ├── index.ts          # 배럴 익스포트
@@ -104,8 +105,9 @@ src/
 │       └── Icons.tsx             # SVG 인라인 아이콘 컴포넌트 모음
 │
 ├── hooks/
-│   └── queries/                  # TanStack React Query 커스텀 훅 모음
-│       └── useTodos.ts           # Todo 데이터 조회/생성/수정/삭제 캐싱 및 낙관적 업데이트 관리
+│   │   └── queries/                  # TanStack React Query 커스텀 훅 모음
+│   │       ├── useTodos.ts           # Todo 데이터 조회/생성/수정/삭제 캐싱 및 낙관적 업데이트 관리
+│   │       └── useStudyReport.ts     # 공부 기록 분석 리포트 캐싱 및 비동기 상태 관리 [NEW]
 │
 ├── pages/                        # 각 라우트별 진입점 컴포넌트
 │   ├── home.tsx                  # 서비스 메인 랜딩 페이지 (/home)
@@ -170,9 +172,22 @@ export interface ApiResponse<T> {
 }
 ```
 
+#### 📝 공부 기록 리포트 DTO (`StudyReport`)
+```typescript
+export interface StudyReport {
+  totalStudyTime: number;       // 총 공부 시간 (분 단위)
+  completedTodosCount: number;  // 완료한 진도 수
+  totalTodosCount: number;      // 전체 진도 수
+  weeklyStudyMinutes: number[]; // 주간 공부 시간 (월~일, 분)
+  studiedKeywords: string[];    // 공부한 핵심 키워드 리스트
+  aiFeedbackSummary: string;    // AI가 분석한 총평 및 전략 리포트
+  reportDate: string;           // 리포트 생성일
+}
+```
+
 ### 4. API 엔드포인트 명세
 
-#### 📚 학습(Todo) 도메인 (`/api/study/todos`)
+#### 📚 학습(Todo) 및 공부 기록 도메인 (`/api/study`)
 | 기능 | 메서드 | 엔드포인트 | 요청 Body / DTO | 응답 Data (T) |
 |---|---|---|---|---|
 | Todo 목록 조회 | `GET` | `/study/todos` | 없음 | `Todo[]` |
@@ -180,6 +195,7 @@ export interface ApiResponse<T> {
 | Todo 벌크 등록 | `POST` | `/study/todos/bulk` | `CreateTodoDto[]` | `Todo[]` |
 | Todo 수정 | `PUT` | `/study/todos/{id}` | `UpdateTodoDto` | `Todo` |
 | Todo 삭제 | `DELETE` | `/study/todos/{id}` | 없음 | 없음 (Void) |
+| 공부 기록 리포트 조회 | `GET` | `/study/report` | 없음 | `StudyReport` [NEW] |
 
 * **낙관적 업데이트 (Optimistic Update)**: `PUT /study/todos/{id}` 호출 시 클라이언트는 서버의 응답 이전에 UI를 우선 반영하고 실패 시 롤백합니다. 백엔드는 신속한 트랜잭션 처리 및 신뢰성 있는 DB 업데이트를 보장해야 합니다.
 

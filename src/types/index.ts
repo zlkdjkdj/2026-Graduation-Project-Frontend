@@ -50,4 +50,17 @@ export interface StudyReport {
   reportDate: string;           // 리포트 생성일
 }
 
+/**
+ * 운동 기록 리포트 모델
+ */
+export interface ExerciseReport {
+  totalWorkoutTime: number;     // 총 운동 시간 (분 단위)
+  totalActiveDays: number;      // 주간 운동 일수
+  totalVolume: number;          // 주간 누적 볼륨 (TON 단위)
+  weeklyVolumes: number[];      // 요일별 누적 볼륨 (월~일, TON)
+  targetMuscles: string[];      // 주로 단련한 부위 리스트
+  aiFeedbackSummary: string;    // AI가 분석한 피드백 리포트
+  reportDate: string;           // 리포트 생성일
+}
+
 
