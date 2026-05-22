@@ -104,30 +104,69 @@ export const LayersIcon = ({ size = 18, ...props }: IconProps) => <Layers size={
 export const SmartphoneIcon = ({ size = 18, ...props }: IconProps) => <Smartphone size={size} {...props} />;
 export const BellIcon = ({ size = 18, ...props }: IconProps) => <Bell size={size} {...props} />;
 
+// Badge Images
+import Badge180Days from '../../assets/images/badge/180Days.svg';
+import Badge30Days from '../../assets/images/badge/30Days.svg';
+import Badge90Days from '../../assets/images/badge/90Days.svg';
+import BadgeFirstPlan from '../../assets/images/badge/FirstPlan.svg';
+import BadgeMorningFirstTime from '../../assets/images/badge/MorningFirstTime.svg';
+import BadgeMorningFiveTime from '../../assets/images/badge/MorningFiveTime.svg';
+import BadgeNotes80 from '../../assets/images/badge/Notes80.svg';
+import BadgeQuiz10Time from '../../assets/images/badge/Quiz10Time.svg';
+import BadgeSpaceShip from '../../assets/images/badge/SpaceShip.svg';
+
+// Tier Images
+import TierBicycle from '../../assets/images/tier/Bicycle.svg';
+import TierCar from '../../assets/images/tier/Car.svg';
+import TierHelicopter from '../../assets/images/tier/Helicopter.svg';
+import TierPlane from '../../assets/images/tier/Plain.svg';
+
+const BADGE_MAP: Record<string, string> = {
+  '180Days': Badge180Days,
+  '30Days': Badge30Days,
+  '90Days': Badge90Days,
+  'FirstPlan': BadgeFirstPlan,
+  'MorningFirstTime': BadgeMorningFirstTime,
+  'MorningFiveTime': BadgeMorningFiveTime,
+  'Notes80': BadgeNotes80,
+  'Quiz10Time': BadgeQuiz10Time,
+  'SpaceShip': BadgeSpaceShip,
+};
+
+const REWARD_MAP = [
+  TierBicycle,
+  TierCar,
+  TierHelicopter,
+  TierPlane,
+  BadgeSpaceShip
+];
+
 // ------------------------------------------------------------------
-//  BadgeIcon – Placeholder (using SparklesIcon)
+//  BadgeIcon – Renders actual SVG badges
 // ------------------------------------------------------------------
-export const BadgeIcon = ({ level: _level, size = 32 }: { level: string; size?: number }) => {
+export const BadgeIcon = ({ level, size = 32 }: { level: string; size?: number }) => {
+  const imgSrc = BADGE_MAP[level] || BADGE_MAP['FirstPlan'];
   return (
     <div 
-      className="rounded-lg flex items-center justify-center bg-gray-100 dark:bg-[#1a1a1a] text-gray-400"
+      className="flex items-center justify-center drop-shadow-xl"
       style={{ width: size, height: size }}
     >
-      <SparklesIcon size={size ? Number(size) * 0.6 : 20} />
+      <img src={imgSrc} alt={level} width={size} height={size} className="object-contain" />
     </div>
   );
 };
 
 // ------------------------------------------------------------------
-//  RewardIcon – Placeholder (using TrophyIcon)
+//  RewardIcon – Renders actual SVG milestone rewards
 // ------------------------------------------------------------------
-export const RewardIcon = ({ index: _index, size = 40 }: { index: number; size?: number }) => {
+export const RewardIcon = ({ index, size = 40 }: { index: number; size?: number }) => {
+  const imgSrc = REWARD_MAP[index] || TierBicycle;
   return (
     <div 
-      className="rounded-xl flex items-center justify-center bg-gray-50 dark:bg-[#111] text-indigo-500"
+      className="flex items-center justify-center drop-shadow-xl"
       style={{ width: size, height: size }}
     >
-      <TrophyIcon size={size ? Number(size) * 0.6 : 24} />
+      <img src={imgSrc} alt={`Reward ${index}`} width={size} height={size} className="object-contain" />
     </div>
   );
 };
