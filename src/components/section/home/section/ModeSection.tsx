@@ -1,4 +1,4 @@
-import { BookIcon, DumbbellIcon, LayersIcon } from '../../../../ui/Icons';
+import { BookIcon, DumbbellIcon, LayersIcon } from '../../../ui/Icons';
 
 const MODES = [
   {

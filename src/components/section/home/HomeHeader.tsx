@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Button } from '../../../common/Button';
-import { LayersIcon } from '../../../ui/Icons';
+import { Button } from '../../common/Button';
+import { LayersIcon } from '../../ui/Icons';
 
 export const HomeHeader = () => {
   return (

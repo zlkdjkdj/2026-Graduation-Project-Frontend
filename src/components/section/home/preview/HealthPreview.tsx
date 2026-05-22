@@ -1,4 +1,4 @@
-import { DumbbellIcon } from '../../../../ui/Icons';
+import { DumbbellIcon } from '../../../ui/Icons';
 
 export const HealthPreview = () => {
   return (

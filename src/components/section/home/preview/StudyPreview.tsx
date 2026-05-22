@@ -1,4 +1,4 @@
-import { CheckIcon, ActivityIcon } from '../../../../ui/Icons';
+import { CheckIcon, ActivityIcon } from '../../../ui/Icons';
 
 export const StudyPreview = () => {
   return (

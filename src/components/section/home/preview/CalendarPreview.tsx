@@ -1,4 +1,4 @@
-import { CalendarIcon, ClockIcon } from '../../../../ui/Icons';
+import { CalendarIcon, ClockIcon } from '../../../ui/Icons';
 
 export const CalendarPreview = () => {
   return (

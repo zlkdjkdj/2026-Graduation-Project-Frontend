@@ -1,12 +1,12 @@
 //스크롤 애니메이션 제어 및 하위 섹션 컴포넌트 취합 하는 컨테이너 역할
 
-import { HeroSection } from '../components/section/sections/home/section/HeroSection';
-import { ModeSection } from '../components/section/sections/home/section/ModeSection';
-import { PreviewSection } from '../components/section/sections/home/section/PreviewSection';
-import { GamificationSection } from '../components/section/sections/home/section/GamificationSection';
-import { CTASection } from '../components/section/sections/home/section/CTASection';
-import { HomeHeader } from '../components/section/sections/home/HomeHeader';
-import { HomeFooter } from '../components/section/sections/home/HomeFooter';
+import { HeroSection } from '../components/section/home/section/HeroSection';
+import { ModeSection } from '../components/section/home/section/ModeSection';
+import { PreviewSection } from '../components/section/home/section/PreviewSection';
+import { GamificationSection } from '../components/section/home/section/GamificationSection';
+import { CTASection } from '../components/section/home/section/CTASection';
+import { HomeHeader } from '../components/section/home/HomeHeader';
+import { HomeFooter } from '../components/section/home/HomeFooter';
 
 export function Home() {
   return (

@@ -1,4 +1,4 @@
-import { CheckIcon, TrophyIcon, TrendIcon, RocketIcon } from '../../../../ui/Icons';
+import { CheckIcon, TrophyIcon, TrendIcon, RocketIcon } from '../../../ui/Icons';
 
 const GAMIFICATION_ITEMS = [
   { label: "포인트 시스템", value: "Success Points", desc: "진도 달성, 운동 완료 시 차등 포인트 지급", icon: <CheckIcon size={24} /> },

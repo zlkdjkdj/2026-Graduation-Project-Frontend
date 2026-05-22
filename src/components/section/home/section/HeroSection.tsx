@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
-import { Button } from '../../../../common/Button';
+import { Button } from '../../../common/Button';
+import bannerImage from '../../../../assets/images/banner.png';
 
 export const HeroSection = () => {
   return (
     <section className="relative h-screen w-full snap-start overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 bg-[#020202]">
         <img
-          src="/images/banner.png"
+          src={bannerImage}
           alt="Banner"
           className="w-full h-full object-cover opacity-80"
         />

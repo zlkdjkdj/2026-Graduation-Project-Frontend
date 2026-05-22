@@ -1,4 +1,4 @@
-import { MessageSquareIcon, TrophyIcon, ThumbsUpIcon } from '../../../../ui/Icons';
+import { MessageSquareIcon, TrophyIcon, ThumbsUpIcon } from '../../../ui/Icons';
 
 export const CommunityPreview = () => {
   return (

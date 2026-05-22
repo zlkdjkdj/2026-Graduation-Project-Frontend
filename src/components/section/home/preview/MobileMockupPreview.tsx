@@ -7,7 +7,7 @@ import {
   TargetIcon, 
   PlusIcon, 
   ActivityIcon 
-} from '../../../../ui/Icons';
+} from '../../../ui/Icons';
 
 export const MobileMockupPreview = () => {
   return (

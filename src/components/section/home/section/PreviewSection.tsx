@@ -3,7 +3,6 @@ import { StudyPreview } from '../preview/StudyPreview';
 import { HealthPreview } from '../preview/HealthPreview';
 import { CalendarPreview } from '../preview/CalendarPreview';
 import { CommunityPreview } from '../preview/CommunityPreview';
-import { SidebarPreview } from '../preview/SidebarPreview';
 import { MobileMockupPreview } from '../preview/MobileMockupPreview';
 
 export const PreviewSection = () => {
@@ -37,10 +36,7 @@ export const PreviewSection = () => {
         {/* 4. 커뮤니티 프리뷰 */}
         <CommunityPreview />
 
-        {/* 5. 사이드바 네비게이션 프리뷰 */}
-        <SidebarPreview />
-
-        {/* 6. 모바일 목업 프리뷰 (Coming Soon) */}
+        {/* 5. 모바일 목업 프리뷰 (Coming Soon) */}
         <MobileMockupPreview />
 
       </div>

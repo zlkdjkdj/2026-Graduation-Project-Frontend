@@ -49,12 +49,12 @@ src/
 │   └── study.ts                  # 학습(Todo) API 엔드포인트 통신 모듈
 │
 ├── app/                          # 앱 진입점 및 라우터 설정
-│   ├── App.tsx                   # RouterProvider 루트 컴포넌트
+│   ├── App.tsx                   # QueryClient 및 RouterProvider 설정 루트 컴포넌트
 │   └── routes.tsx                # 클라이언트 사이드 라우팅 정의
 │
 ├── components/
 │   ├── common/                   # 재사용되는 공통 UI
-│   │   ├── BarChart.tsx          # 세로 막대 차트 (인랙션 포함)
+│   │   ├── BarChart.tsx          # 세로 막대 차트 (인터랙션 포함)
 │   │   ├── Button.tsx            # 공통 버튼 컴포넌트
 │   │   ├── Card.tsx              # 카드 프레임 및 카드 타이틀
 │   │   ├── FieldInput.tsx        # 레이블 포함 입력 필드
@@ -63,21 +63,42 @@ src/
 │   │   └── ProgressBar.tsx       # 진행률 바
 │   │
 │   ├── layout/
-│   │   └── MainLayout.tsx        # 전체 레이아웃 (사이드바 + 모바일 헤더 + 테마 토글)
+│   │   └── MainLayout.tsx        # 전체 레이아웃 (상단 헤더바 + 알림/테마 토글 + 서브 라우트 컨테이너)
 │   │
-│   ├── section/
+│   ├── section/                  # 각 페이지별 핵심 전용 섹션 컴포넌트
+│   │   ├── home/                 # 랜딩 페이지(/home) 전용 컴포넌트
+│   │   │   ├── HomeHeader.tsx    # 랜딩 페이지 상단 헤더
+│   │   │   ├── HomeFooter.tsx    # 랜딩 페이지 하단 푸터
+│   │   │   ├── section/          # 랜딩 페이지 본문 섹션 (Hero, Mode, Preview, Gamification, CTA)
+│   │   │   └── preview/          # 기능 프리뷰 컴포넌트 (Study, Health, Calendar, Community, MobileMockup)
+│   │   │
 │   │   ├── study/                # 학습 스튜디오 전용 섹션 컴포넌트
 │   │   │   ├── index.ts          # 배럴 익스포트
 │   │   │   ├── SyllabusBox.tsx   # 강의계획서 업로드 + AI 로드맵 생성
 │   │   │   ├── ChecklistBox.tsx  # 학습 마일스톤 체크리스트
 │   │   │   ├── StopwatchBox.tsx  # 학습 시간 측정 스톱워치
-│   │   │   └── StudyWidgets.tsx  # DiaryBox, AiSuggestionBox, DashboardBox, GeminiBox
+│   │   │   └── StudyWidgets.tsx  # DiaryBox, AiSuggestionBox, DashboardBox 등
 │   │   │
-│   │   └── exercise/             # 운동 랩 전용 섹션 컴포넌트
+│   │   ├── exercise/             # 운동 랩 전용 섹션 컴포넌트
+│   │   │   ├── index.ts          # 배럴 익스포트
+│   │   │   ├── ExerciseRecordBox.tsx  # 운동 기록 및 사진 업로드
+│   │   │   ├── DietBox.tsx            # 식단 관리 (아침/점심/저녁 탭, 칼로리 합산)
+│   │   │   └── ExerciseWidgets.tsx    # GuideBox, AiGuideBox, BodyCompositionBox 등
+│   │   │
+│   │   ├── schedule/             # 일정 생성 전용 섹션 컴포넌트
+│   │   │   ├── index.ts          # 배럴 익스포트
+│   │   │   ├── CalendarBox.tsx        # 메인 캘린더 컴포넌트
+│   │   │   ├── ScheduleLists.tsx      # 일정 목록 및 상태 필터링
+│   │   │   ├── AiInsightsBox.tsx      # AI 루틴 추천 및 통계 인사이트
+│   │   │   └── ScheduleModal.tsx      # 일정 추가/수정 모달
+│   │   │
+│   │   └── community/            # 커뮤니티 전용 섹션 컴포넌트
 │   │       ├── index.ts          # 배럴 익스포트
-│   │       ├── ExerciseRecordBox.tsx  # 운동 기록 및 사진 업로드
-│   │       ├── DietBox.tsx            # 식단 관리 (아침/점심/저녁 탭, 칼로리 합산)
-│   │       └── ExerciseWidgets.tsx    # GuideBox, AiGuideBox, BodyCompositionBox, DashboardBox
+│   │       ├── CommunityHeader.tsx    # 커뮤니티 검색 및 헤더
+│   │       ├── PostCard.tsx           # 게시글 카드 컴포넌트
+│   │       ├── PostDetailModal.tsx    # 게시글 상세 및 댓글 모달
+│   │       ├── GlobalRankingBox.tsx   # 유저 랭킹 보드
+│   │       └── RewardMilestoneBox.tsx # 등급별 리워드 시각화
 │   │
 │   └── ui/
 │       └── Icons.tsx             # SVG 인라인 아이콘 컴포넌트 모음
@@ -86,15 +107,13 @@ src/
 │   └── queries/                  # TanStack React Query 커스텀 훅 모음
 │       └── useTodos.ts           # Todo 데이터 조회/생성/수정/삭제 캐싱 및 낙관적 업데이트 관리
 │
-├── pages/
-│   ├── study/
-│   │   └── StudyPage.tsx         # 학습 스튜디오 페이지 (/study)
-│   ├── exercise/
-│   │   └── ExercisePage.tsx      # 운동 랩 페이지 (/exercise)
-│   ├── community/
-│   │   └── CommunityPage.tsx     # 커뮤니티 페이지 (/community - CRUD/랭킹/리워드 구현)
-│   └── home/
-│       └── EmptyPage.tsx         # 준비 중 페이지 (/settings)
+├── pages/                        # 각 라우트별 진입점 컴포넌트
+│   ├── home.tsx                  # 서비스 메인 랜딩 페이지 (/home)
+│   ├── StudyPage.tsx             # 학습 스튜디오 대시보드 페이지 (/main/study)
+│   ├── ExercisePage.tsx          # 운동 랩 대시보드 페이지 (/main/exercise)
+│   ├── SchedulePage.tsx          # 일정 생성 대시보드 페이지 (/main/schedule)
+│   ├── CommunityPage.tsx         # 커뮤니티 메인 페이지 (/main/community)
+│   └── EmptyPage.tsx             # 임시 페이지 (로그인, 회원가입, 설정 등)
 │
 ├── types/
 │   └── index.ts                  # 전역 TypeScript 공통 타입 및 API 응답 DTO 규격 정의
@@ -109,11 +128,16 @@ src/
 
 | 경로 | 컴포넌트 | 설명 |
 |---|---|---|
-| `/` | (redirect) | `/study`로 자동 리다이렉트 |
-| `/study` | `StudyPage` | 학습 스튜디오 대시보드 |
-| `/exercise` | `ExercisePage` | 운동 랩 대시보드 |
-| `/community` | `CommunityPage` | 커뮤니티 광장 (글 작성, 댓글, 랭킹 및 진화 리워드) |
-| `/settings` | `EmptyPage` | 설정 (준비 중) |
+| `/` | (redirect) | `/home`으로 자동 리다이렉트 |
+| `/home` | `Home` | 서비스 메인 랜딩 페이지 |
+| `/login` | `EmptyPage` | 로그인 페이지 (준비 중) |
+| `/signup` | `EmptyPage` | 회원가입 페이지 (준비 중) |
+| `/main` | (redirect) | `/main/study`로 자동 리다이렉트 |
+| `/main/study` | `StudyPage` | 학습 스튜디오 대시보드 |
+| `/main/exercise` | `ExercisePage` | 운동 랩 대시보드 |
+| `/main/schedule` | `SchedulePage` | 일정 생성 대시보드 (캘린더 및 AI 인사이트) |
+| `/main/community` | `CommunityPage` | 커뮤니티 광장 (글 작성, 댓글, 실시간 랭킹 및 리워드) |
+| `/main/settings` | `EmptyPage` | 설정 페이지 (준비 중) |
 
 ---
 
