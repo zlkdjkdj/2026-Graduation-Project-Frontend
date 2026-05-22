@@ -1,7 +1,7 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
-
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
@@ -16,10 +16,10 @@
     --brand-primary: #000000;
   }
   .dark {
-    --bg-main: #090c15;    /* Deep premium navy-slate, much richer and easier on the eyes */
-    --bg-card: #131929;    /* Lighter navy-slate card background for visual hierarchy */
-    --text-main: #f1f5f9;  /* Crisp off-white (slate-100) */
-    --border-main: #222c42; /* Defined dark slate border (slate-800) */
+    --bg-main: #09090b;    /* Zinc 950: Extreme pure black/charcoal */
+    --bg-card: #18181b;    /* Zinc 900: Soft charcoal card background */
+    --text-main: #fafafa;  /* Zinc 50: Crisp bright text for high contrast */
+    --border-main: #27272a; /* Zinc 800: Clear distinct border for structure */
     --brand-primary: #ffffff;
   }
 
@@ -28,19 +28,19 @@
     background-color: var(--bg-card) !important;
   }
   .dark .bg-gray-50 {
-    background-color: #0d121f !important;
+    background-color: #09090b !important;
   }
   .dark .bg-gray-50\/50 {
-    background-color: rgba(9, 12, 21, 0.4) !important;
+    background-color: rgba(24, 24, 27, 0.4) !important;
   }
   .dark .bg-gray-100 {
-    background-color: #1e293b !important;
+    background-color: #27272a !important;
   }
   .dark .bg-\[\#050505\]\/50 {
-    background-color: rgba(9, 12, 21, 0.4) !important;
+    background-color: rgba(9, 9, 11, 0.4) !important;
   }
   .dark .bg-\[\#080808\]\/50 {
-    background-color: rgba(9, 12, 21, 0.4) !important;
+    background-color: rgba(9, 9, 11, 0.4) !important;
   }
   .dark .bg-\[\#0a0a0a\] {
     background-color: var(--bg-card) !important;
@@ -61,13 +61,13 @@
     border-color: var(--border-main) !important;
   }
   .dark .text-gray-600 {
-    color: #e2e8f0 !important;
+    color: #e4e4e7 !important; /* Zinc 200 for better readability */
   }
   .dark .text-gray-500 {
-    color: #cbd5e1 !important;
+    color: #d4d4d8 !important; /* Zinc 300 for better readability */
   }
   .dark .text-gray-400 {
-    color: #94a3b8 !important;
+    color: #a1a1aa !important; /* Zinc 400 for better readability */
   }
   
   html, body {
@@ -97,7 +97,7 @@
 
 @layer utilities {
   .studio-card {
-    @apply relative z-10 bg-white/60 dark:bg-[#131929]/70 backdrop-blur-2xl border border-white/40 dark:border-slate-800/60 rounded-[2rem] p-8 transition-all duration-500 shadow-xl shadow-gray-200/50 dark:shadow-black/50 hover:shadow-2xl hover:-translate-y-1;
+    @apply relative z-10 bg-white/60 dark:bg-[#18181b]/70 backdrop-blur-2xl border border-white/40 dark:border-zinc-800/60 rounded-[2rem] p-8 transition-all duration-500 shadow-xl shadow-gray-200/50 dark:shadow-black/50 hover:shadow-2xl hover:-translate-y-1;
   }
   
   .gemini-bg {

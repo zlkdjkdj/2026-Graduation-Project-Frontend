@@ -2,4 +2,4 @@
 export { SyllabusBox } from './SyllabusBox';
 export { ChecklistBox } from './ChecklistBox';
 export { StopwatchBox } from './StopwatchBox';
-export { QuizGeneratorBox, AiSuggestionBox, DashboardBox, GeminiBox } from './StudyWidgets';
+export { QuizGeneratorBox, StudyRecordBox, LearningStrategyBox, DashboardBox, GeminiBox } from './StudyWidgets';

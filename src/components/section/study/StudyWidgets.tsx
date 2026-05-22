@@ -181,43 +181,26 @@ export function QuizGeneratorBox() {
   );
 }
 
-export function AiSuggestionBox() {
+export function StudyRecordBox({ onAnalyze }: { onAnalyze: (keywords: string, time: string) => Promise<void> | void }) {
   const [keywords, setKeywords] = useState('');
   const [time, setTime] = useState('60');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [suggestions, setSuggestions] = useState<any[]>([]);
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (!keywords) return;
     setIsAnalyzing(true);
-    // 시뮬레이션: 마일스톤 기반 제안 생성
-    setTimeout(() => {
-      setIsAnalyzing(false);
-      setSuggestions([
-        {
-          title: '진도 달성',
-          text: `오늘 '${keywords}' 학습을 통해 핵심 개념의 70%를 마스터하셨습니다.`,
-          icon: <TrendIcon size={20} />,
-          color: 'text-indigo-500'
-        },
-        {
-          title: '심화 제안',
-          text: '남은 30분 동안은 오늘 배운 공식의 유도 과정을 직접 증명해 보는 것을 추천합니다.',
-          icon: <SparklesIcon size={20} />,
-          color: 'text-amber-500'
-        }
-      ]);
-    }, 1200);
+    await onAnalyze(keywords, time);
+    setIsAnalyzing(false);
   };
 
   return (
-    <Card className="h-full border-t-4 border-indigo-500 flex flex-col min-h-[450px]">
+    <Card className="h-full border-t-4 border-indigo-500 flex flex-col min-h-[300px]">
       <CardTitle icon={<SparklesIcon size={18} />}>오늘의 공부 기록</CardTitle>
       <p className="text-[0.65rem] font-medium text-gray-400 mb-6 px-1 leading-relaxed">
-        * 입력하신 공부 기록과 마일스톤 체크 내용을 통계적으로 분석하여 최적의 맞춤형 학습 전략을 제안합니다.
+        오늘 집중하여 공부한 주제와 시간을 기록해 주세요. AI가 분석하여 맞춤 전략을 도출합니다.
       </p>
 
-      <div className="space-y-4 mb-8">
+      <div className="space-y-4 mb-4">
         <div>
           <label className="block text-[0.6rem] font-black text-gray-400 mb-2 uppercase tracking-widest">오늘 공부한 키워드</label>
           <input
@@ -225,7 +208,7 @@ export function AiSuggestionBox() {
             value={keywords}
             onChange={(e) => setKeywords(e.target.value)}
             placeholder="예: 미적분 기본정리, 치환적분"
-            className="w-full bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-indigo-500 transition-all"
+            className="w-full bg-gray-50 dark:bg-[#09090b] border border-gray-100 dark:border-[#27272a] rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-indigo-500 transition-all text-gray-800 dark:text-gray-200"
           />
         </div>
         <div className="flex items-end gap-3">
@@ -235,41 +218,91 @@ export function AiSuggestionBox() {
               type="number"
               value={time}
               onChange={(e) => setTime(e.target.value)}
-              className="w-full bg-gray-50 dark:bg-[#050505] border border-gray-100 dark:border-[#1a1a1a] rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-indigo-500 transition-all"
+              className="w-full bg-gray-50 dark:bg-[#09090b] border border-gray-100 dark:border-[#27272a] rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-indigo-500 transition-all text-gray-800 dark:text-gray-200"
             />
           </div>
           <span className="text-xs font-black text-gray-400 mb-3">MIN</span>
           <button
             onClick={handleAnalyze}
             disabled={!keywords || isAnalyzing}
-            className={`px-6 py-3 rounded-xl text-xs font-black transition-all shadow-lg
-              ${!keywords || isAnalyzing ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-indigo-600 text-white hover:scale-105 active:scale-95 shadow-indigo-500/20'}
+            className={`px-6 py-3 rounded-xl text-xs font-black transition-all shadow-lg cursor-pointer
+              ${!keywords || isAnalyzing ? 'bg-gray-100 dark:bg-[#27272a] text-gray-400 cursor-not-allowed' : 'bg-indigo-600 text-white hover:scale-105 active:scale-95 shadow-indigo-500/20'}
             `}
           >
-            {isAnalyzing ? '분석 중' : '분석'}
+            {isAnalyzing ? '분석 중' : '기록 분석'}
           </button>
         </div>
       </div>
+    </Card>
+  );
+}
 
-      <div className="flex-grow space-y-4">
-        <h3 className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-gray-400 ml-1 mb-4">맞춤형 학습 전략</h3>
-        {suggestions.length > 0 ? (
-          suggestions.map((s, i) => (
+export function LearningStrategyBox({ suggestions }: { suggestions: any[] }) {
+  const defaultStrategies = [
+    {
+      title: '능동적 회상 (Active Recall)',
+      text: '노트를 덮고 오늘 배운 핵심 공식을 백지에 스스로 적어보며 기억을 인출하세요.',
+      icon: <SparklesIcon size={20} />,
+      color: 'text-indigo-500'
+    },
+    {
+      title: '뽀모도로 몰입 루틴',
+      text: '25분 몰입 학습 후 5분 완전 휴식 루틴을 적용하여 두뇌 피로도를 조절하세요.',
+      icon: <TrendIcon size={20} />,
+      color: 'text-rose-500'
+    },
+    {
+      title: '주기적 누적 복습',
+      text: '학습 후 24시간 이내 1차 복습, 1주일 후 2차 누적 복습을 통해 망각을 차단하세요.',
+      icon: <AlertIcon size={20} />,
+      color: 'text-emerald-500'
+    }
+  ];
+
+  const hasSuggestions = suggestions && suggestions.length > 0;
+
+  return (
+    <Card className="h-full border-t-4 border-indigo-500 flex flex-col min-h-[400px]">
+      <CardTitle icon={<TrendIcon size={18} />}>맞춤형 학습 전략</CardTitle>
+      
+      <div className="flex-grow space-y-4 overflow-y-auto pr-2 custom-scrollbar">
+        {hasSuggestions ? (
+          <>
+            <h3 className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-indigo-500 dark:text-indigo-400 ml-1 mb-2">AI 분석 맞춤 피드백</h3>
+            <div className="space-y-4 mb-6">
+              {suggestions.map((s, i) => (
+                <div key={i} className="animate-in fade-in duration-500">
+                  <InfoCard
+                    icon={s.icon}
+                    title={s.title}
+                    text={s.text}
+                    iconColor={s.color}
+                    hoverBg="hover:bg-indigo-50/50 dark:hover:bg-indigo-950/10"
+                  />
+                </div>
+              ))}
+            </div>
+            
+            <h3 className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-gray-400 ml-1 mt-6 mb-2">기본 학습 가이드</h3>
+          </>
+        ) : (
+          <p className="text-[0.65rem] font-medium text-gray-400 mb-4 px-1 leading-relaxed">
+            * 항상 제공되는 핵심 학습 가이드입니다. 왼쪽에서 학습 주제를 분석하면 맞춤형 AI 전략이 추가됩니다.
+          </p>
+        )}
+
+        <div className="space-y-4">
+          {defaultStrategies.map((s, i) => (
             <InfoCard
               key={i}
               icon={s.icon}
               title={s.title}
               text={s.text}
               iconColor={s.color}
-              hoverBg="hover:bg-indigo-50 dark:hover:bg-indigo-950/20"
+              hoverBg="hover:bg-indigo-50/50 dark:hover:bg-indigo-950/10"
             />
-          ))
-        ) : (
-          <div className="h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-50 dark:border-[#0d0d0d] rounded-2xl opacity-40">
-            <AlertIcon size={24} className="text-gray-300 mb-2" />
-            <p className="text-[10px] font-bold text-gray-400">키워드를 입력하고 학습 분석을 시작하세요.</p>
-          </div>
-        )}
+          ))}
+        </div>
       </div>
     </Card>
   );
