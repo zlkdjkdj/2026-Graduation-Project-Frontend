@@ -1,3 +1,4 @@
+// 홈 화면 최상단의 메인 히어로 배너 섹션 컴포넌트
 import { Link } from 'react-router-dom';
 import { Button } from '../../../common/Button';
 import bannerImage from '../../../../assets/images/banner.png';

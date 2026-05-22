@@ -1,3 +1,4 @@
+// 홈 화면의 게이미피케이션(포인트, 랭킹, 뱃지 등) 시스템 소개 섹션 컴포넌트
 import { CheckIcon, TrophyIcon, TrendIcon, RocketIcon } from '../../../ui/Icons';
 
 const GAMIFICATION_ITEMS = [

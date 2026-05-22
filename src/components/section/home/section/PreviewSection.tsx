@@ -1,4 +1,4 @@
-// 6개의 기능 프리뷰 컴포넌트를 조합하는 Live Preview 섹션 컨테이너
+// 홈 화면의 각 기능별 미리보기 컴포넌트들을 조합하는 컨테이너 섹션 컴포넌트
 import { StudyPreview } from '../preview/StudyPreview';
 import { HealthPreview } from '../preview/HealthPreview';
 import { CalendarPreview } from '../preview/CalendarPreview';

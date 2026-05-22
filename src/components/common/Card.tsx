@@ -1,11 +1,9 @@
-// ============================================================
 // components/common/Card.tsx
 // 앱 전역에서 사용하는 기본 카드 컴포넌트.
-//
 // Card     : index.css의 .studio-card 유틸리티를 적용한 래퍼.
-//            className prop으로 border, glow 등의 추가 스타일을 받는다.
-// CardTitle: 카드 내부 제목 컴포넌트. 선택적으로 아이콘을 좌측에 표시한다.
-// ============================================================
+//            className prop으로 border, glow 등의 추가 스타일 수신
+// CardTitle: 카드 내부 제목 컴포넌트. 선택적으로 아이콘을 좌측에 표시
+
 import React, { type ReactNode } from 'react';
 
 /**

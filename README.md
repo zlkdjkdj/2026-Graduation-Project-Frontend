@@ -9,6 +9,7 @@
 ### 파일 구조도 (File Structure Tree)
 ```text
 📦 2026-Graduation-Project-Frontend
+ ┣ 📂 dist             # (자동 생성) 최종 프로덕션 배포용 빌드 결과물
  ┣ 📂 src
  ┃ ┣ 📂 api            # 서버 통신 및 Axios 클라이언트 설정
  ┃ ┣ 📂 app            # 앱 진입점 및 전역 라우터(routes.tsx)
@@ -48,6 +49,12 @@
   * `index.ts`: 모델의 인터페이스 및 API Response 스펙 정의.
 * **`index.css`** : Tailwind CSS 지시어 설정 및 글로벌 CSS, Pretendard 폰트 룰을 정의함.
 * **`main.tsx`** : React 앱의 루트 렌더러 (Virtual DOM 렌더링 진입점).
+
+### `/dist` 디렉토리 (프로덕션 배포 결과물)
+* **`dist/`** : `pnpm run build` 명령어 실행 시 생성되는 최종 배포 폴더임. 
+  * `src`의 모든 코드가 브라우저 전용 표준 JavaScript/CSS로 변환되어 용량이 압축(Minify) 저장됨.
+  * 실제 웹 서버(Vercel, AWS S3 등) 호스팅 시, 소스코드가 아닌 오직 이 `dist` 폴더 하나만 업로드됨.
+  * 소스코드 빌드 시 항상 덮어씌워지는 자동 생성 폴더이므로 **내부 파일을 수동으로 수정하거나 삭제하지 않아야 함** (관리는 오직 `src`에서만 진행).
 
 ### 기타 최상위 파일
 * **`package.json` / `pnpm-lock.yaml`** : 프로젝트 의존성 모듈 목록 및 스크립트 (pnpm 패키지 매니저 사용).

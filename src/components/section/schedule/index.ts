@@ -4,7 +4,6 @@ export * from './types';
 export * from './constants';
 export { ScheduleHeader } from './ScheduleHeader';
 export { AiInsightsBox } from './AiInsightsBox';
-export { ScheduleCard } from './ScheduleCard';
 export { TodayScheduleBox, RoutineScheduleBox, MajorScheduleBox } from './ScheduleLists';
 export { CalendarBox } from './CalendarBox';
 export { DayDetailModal } from './DayDetailModal';

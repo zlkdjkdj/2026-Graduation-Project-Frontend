@@ -1,3 +1,4 @@
+// 홈 화면의 3가지 핵심 모드(Study, Health, God-Life)별 특화 기능 리스트 섹션 컴포넌트
 import { BookIcon, DumbbellIcon, LayersIcon } from '../../../ui/Icons';
 
 const MODES = [

@@ -1,3 +1,5 @@
+// 홈 화면의 캘린더 기능 미리보기 컴포넌트
+// 일정 달력 및 시간별 일정 상세 목록 UI를 시각화함
 import { CalendarIcon, ClockIcon } from '../../../ui/Icons';
 
 export const CalendarPreview = () => {

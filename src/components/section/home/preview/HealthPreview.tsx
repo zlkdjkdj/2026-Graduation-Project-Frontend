@@ -1,3 +1,5 @@
+// 홈 화면의 운동/헬스 트레이닝 기능 미리보기 컴포넌트
+// 운동 종류별 세트 기록 및 개인 맞춤 피드백 추천 UI를 렌더링함
 import { DumbbellIcon } from '../../../ui/Icons';
 
 export const HealthPreview = () => {

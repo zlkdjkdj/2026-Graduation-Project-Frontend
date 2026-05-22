@@ -1,3 +1,5 @@
+// 홈 화면의 학습 스튜디오 기능 미리보기 컴포넌트
+// 핵심 학습 지표(시간, 달성률 등)의 그래프 및 오늘 공부 진도 체크리스트 UI를 제공함
 import { CheckIcon, ActivityIcon } from '../../../ui/Icons';
 
 export const StudyPreview = () => {

@@ -1,12 +1,10 @@
-// ============================================================
 // components/common/InfoCard.tsx
-// 아이콘 + 제목 + 설명 텍스트를 가로로 배열하는 정보 카드 컴포넌트.
-// AI 추천 가이드, 전략 제안 등 읽기 전용 정보 표시에 사용된다.
-//
-// 모드에 따라 iconColor와 hoverBg를 props로 넘겨 포인트 색상을 결정한다.
+// 아이콘 + 제목 + 설명 텍스트를 가로로 배열하는 정보 카드 컴포넌트
+// AI 추천 가이드, 전략 제안 등 읽기 전용 정보 표시에 사용
+// 모드에 따라 iconColor와 hoverBg를 props로 넘겨 포인트 색상을 결정
 //   - 학습 모드: text-indigo-500 / hover:bg-indigo-50
 //   - 운동 모드: text-rose-500   / hover:bg-rose-50
-// ============================================================
+
 import type { ReactNode } from 'react';
 
 interface InfoCardProps {

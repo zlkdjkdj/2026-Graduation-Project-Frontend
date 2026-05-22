@@ -1,5 +1,3 @@
-// ============================================================
-// components/layout/MainLayout.tsx
 // 앱 전체의 공통 레이아웃 컴포넌트 (상단 헤더 디자인)
 //
 // 주요 기능:
@@ -7,7 +5,7 @@
 //   - 데스크탑에서는 가로형 네비게이션, 모바일에서는 햄버거 메뉴
 //   - isDarkMode 상태로 <html> 태그에 .dark 클래스를 토글하여 테마 전환
 //   - <Outlet />을 통해 현재 경로의 페이지 컴포넌트를 렌더링
-// ============================================================
+
 import { useState, useEffect, useRef } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
@@ -64,7 +62,7 @@ export function MainLayout() {
     },
   ]);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  
+
   const notificationRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -116,11 +114,10 @@ export function MainLayout() {
   const NavItem = ({ to, icon, label, active, onClickOverride, hasToggle, isExpanded }: { to: string; icon: React.ReactNode; label: string; active: boolean; onClickOverride?: () => void; hasToggle?: boolean; isExpanded?: boolean }) => (
     <div
       onClick={() => onClickOverride ? onClickOverride() : navigate(to)}
-      className={`flex items-center gap-2 px-5 py-2 rounded-full cursor-pointer transition-all duration-300 group ${
-        active
+      className={`flex items-center gap-2 px-5 py-2 rounded-full cursor-pointer transition-all duration-300 group ${active
           ? 'bg-gray-900 dark:bg-white text-white dark:text-black shadow-lg shadow-gray-900/20 dark:shadow-white/20'
           : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5'
-      }`}
+        }`}
     >
       <div className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-inherit' : 'text-gray-400 group-hover:text-inherit'}`}>
         {icon}
@@ -136,11 +133,11 @@ export function MainLayout() {
 
   return (
     <div className="gemini-bg min-h-screen text-gray-900 dark:text-[#ededed] flex flex-col transition-colors duration-500 font-sans selection:bg-indigo-500/30">
-      
+
       {/* ── 상단 헤더바 (Floating Glassmorphism) ── */}
       <header className="sticky top-4 z-50 max-w-[1800px] w-[calc(100%-2rem)] lg:w-[calc(100%-5rem)] mx-auto bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl border border-white/40 dark:border-slate-800/60 rounded-full shadow-xl shadow-gray-200/50 dark:shadow-black/50 transition-all duration-500">
         <div className="px-6 lg:px-8 h-16 flex items-center justify-between">
-          
+
           {/* 로고 영역 */}
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/main/study')}>
             <div className="w-10 h-10 bg-black dark:bg-white rounded-xl flex items-center justify-center text-white dark:text-black font-black text-sm shadow-xl flex-shrink-0">LT</div>
@@ -150,13 +147,13 @@ export function MainLayout() {
           {/* 데스크탑 네비게이션 (lg 이상) */}
           <nav className="hidden lg:flex items-center gap-2">
             <NavItem to="/main/schedule" icon={<CalendarIcon size={18} />} label="일정 생성" active={currentPath.includes('schedule')} />
-            
+
             <div className="relative">
-              <NavItem 
-                to="/main/study" 
-                icon={<BookIcon size={18} />} 
-                label="학습 스튜디오" 
-                active={currentPath.includes('study')} 
+              <NavItem
+                to="/main/study"
+                icon={<BookIcon size={18} />}
+                label="학습 스튜디오"
+                active={currentPath.includes('study')}
                 hasToggle={true}
                 isExpanded={isStudyExpanded}
                 onClickOverride={() => {
@@ -166,7 +163,7 @@ export function MainLayout() {
                     setIsStudyExpanded(true);
                     navigate('/main/study');
                   }
-                }} 
+                }}
               />
               {/* 학습 스튜디오 과목 드롭다운 */}
               {isStudyExpanded && (
@@ -177,17 +174,16 @@ export function MainLayout() {
                     { id: 'science', name: '과학' },
                     { id: 'history', name: '역사' },
                   ].map(sub => (
-                    <div 
+                    <div
                       key={sub.id}
                       onClick={() => {
                         setSelectedSubject(sub.id);
                         setIsStudyExpanded(false);
                       }}
-                      className={`text-sm py-3 px-4 cursor-pointer font-medium transition-all ${
-                        selectedSubject === sub.id 
-                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold' 
-                        : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1a1a1a]'
-                      }`}
+                      className={`text-sm py-3 px-4 cursor-pointer font-medium transition-all ${selectedSubject === sub.id
+                          ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold'
+                          : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1a1a1a]'
+                        }`}
                     >
                       {sub.name}
                     </div>
@@ -265,9 +261,8 @@ export function MainLayout() {
                         <div
                           key={item.id}
                           onClick={() => toggleNotificationRead(item.id)}
-                          className={`relative px-5 py-4 flex gap-3 cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-[#121212] group ${
-                            !item.isRead ? 'bg-indigo-50/20 dark:bg-indigo-950/5' : ''
-                          }`}
+                          className={`relative px-5 py-4 flex gap-3 cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-[#121212] group ${!item.isRead ? 'bg-indigo-50/20 dark:bg-indigo-950/5' : ''
+                            }`}
                         >
                           {/* 읽지 않은 알림을 위한 왼쪽 색상 인디케이터 바 */}
                           {!item.isRead && (
@@ -275,12 +270,11 @@ export function MainLayout() {
                           )}
 
                           {/* 알림 유형별 아이콘 */}
-                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                            item.type === 'study' ? 'bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400' :
-                            item.type === 'exercise' ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400' :
-                            item.type === 'community' ? 'bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400' :
-                            'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
-                          }`}>
+                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${item.type === 'study' ? 'bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400' :
+                              item.type === 'exercise' ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400' :
+                                item.type === 'community' ? 'bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400' :
+                                  'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                            }`}>
                             {item.type === 'study' && <BookIcon size={16} />}
                             {item.type === 'exercise' && <DumbbellIcon size={16} />}
                             {item.type === 'community' && <UsersIcon size={16} />}
@@ -323,7 +317,7 @@ export function MainLayout() {
             >
               {isDarkMode ? <SunIcon size={20} /> : <MoonIcon size={20} />}
             </button>
-            
+
             {/* 모바일 햄버거 메뉴 토글 버튼 */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -338,12 +332,12 @@ export function MainLayout() {
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-2 mx-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl border border-white/40 dark:border-slate-800/60 rounded-3xl shadow-2xl px-6 py-4 flex flex-col gap-2 animate-in slide-in-from-top-2 duration-300">
             <NavItem to="/main/schedule" icon={<CalendarIcon size={18} />} label="일정 생성" active={currentPath.includes('schedule')} />
-            
-            <NavItem 
-              to="/main/study" 
-              icon={<BookIcon size={18} />} 
-              label="학습 스튜디오" 
-              active={currentPath.includes('study')} 
+
+            <NavItem
+              to="/main/study"
+              icon={<BookIcon size={18} />}
+              label="학습 스튜디오"
+              active={currentPath.includes('study')}
               hasToggle={true}
               isExpanded={isStudyExpanded}
               onClickOverride={() => {
@@ -353,7 +347,7 @@ export function MainLayout() {
                   setIsStudyExpanded(true);
                   navigate('/main/study');
                 }
-              }} 
+              }}
             />
             {/* 모바일 학습 스튜디오 과목 목록 */}
             {isStudyExpanded && (
@@ -364,17 +358,16 @@ export function MainLayout() {
                   { id: 'science', name: '과학' },
                   { id: 'history', name: '역사' },
                 ].map(sub => (
-                  <div 
+                  <div
                     key={sub.id}
                     onClick={() => {
                       setSelectedSubject(sub.id);
                       setIsMobileMenuOpen(false);
                     }}
-                    className={`text-sm py-2 px-4 rounded-xl cursor-pointer font-medium transition-all ${
-                      selectedSubject === sub.id 
-                      ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold' 
-                      : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1a1a1a]'
-                    }`}
+                    className={`text-sm py-2 px-4 rounded-xl cursor-pointer font-medium transition-all ${selectedSubject === sub.id
+                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold'
+                        : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1a1a1a]'
+                      }`}
                   >
                     {sub.name}
                   </div>

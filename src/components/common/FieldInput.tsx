@@ -1,11 +1,9 @@
-// ============================================================
 // components/common/FieldInput.tsx
 // 레이블 + 입력 필드를 한 블록으로 제공하는 컴포넌트.
-// BodyCompositionBox 등 반복적인 레이블-인풋 패턴을 단순화한다.
-//
+// BodyCompositionBox 등 반복적인 레이블-인풋 패턴을 단순화
 // 기본 HTML input의 모든 속성을 상속받으며,
-// focusColor prop으로 모드별 포커스 링 색상을 결정한다.
-// ============================================================
+// focusColor prop으로 모드별 포커스 링 색상을 결정
+
 import type { InputHTMLAttributes } from 'react';
 
 interface FieldInputProps extends InputHTMLAttributes<HTMLInputElement> {

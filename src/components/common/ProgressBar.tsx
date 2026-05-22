@@ -1,9 +1,7 @@
-// ============================================================
-// components/common/ProgressBar.tsx
 // 진행 바 공통 컴포넌트.
 // 학습/운동 대시보드의 지표 섹션에서 재사용된다.
-// accentColor, textColor, borderHover prop으로 모드별 색상을 주입한다.
-// ============================================================
+// accentColor, textColor, borderHover prop으로 모드별 색상을 주입
+
 interface ProgressBarProps {
   name: string;            // 지표 이름 (e.g. '집중도')
   progress: number;        // 진행률 0~100
@@ -14,7 +12,7 @@ interface ProgressBarProps {
 
 /**
  * 이름 + 퍼센트 수치 + 시각적 진행 바를 한 블록으로 표시하는 컴포넌트.
- * 색상 관련 props는 전부 Tailwind 클래스 문자열로 전달한다.
+ * 색상 관련 props는 전부 Tailwind 클래스 문자열로 전달
  */
 export function ProgressBar({
   name,

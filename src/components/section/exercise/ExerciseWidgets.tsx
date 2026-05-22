@@ -1,14 +1,5 @@
-// ============================================================
-// components/section/exercise/ExerciseWidgets.tsx
-// 운동 랩 하위 위젯 컴포넌트 모음.
-//
-// 포함 컴포넌트:
-//   ExerciseGuideBox      - 부위별 탭 선택 + 운동 영상 스트림 영역
-//   AiExerciseGuideBox    - AI 기반 운동 전략 분석 (InfoCard 재사용)
-//   ExerciseDiaryBox      - 트레이닝 로그 텍스트 + 운동 시간 저장 카드
-//   BodyCompositionBox    - 체중/체지방률/골격근량 바이오메트릭 입력 카드
-//   ExerciseDashboardBox  - 근성장 속도 막대 차트 + 퍼포먼스 인덱스 대시보드
-// ============================================================
+// 운동 랩 하위 위젯 컴포넌트 모음
+// 포함 컴포넌트: ExerciseGuideBox, AiExerciseGuideBox, TrainingSessionBox, BodyCompositionBox, ExerciseDashboardBox
 import { SparklesIcon, DumbbellIcon, TargetIcon, TrendIcon, PlayCircleIcon } from '../../ui/Icons';
 import { Card, CardTitle } from '../../common/Card';
 import { InfoCard } from '../../common/InfoCard';
@@ -21,12 +12,12 @@ const WEEKLY_DATA = [50, 60, 55, 80, 70, 95, 60];
 const BODY_PARTS = ['가슴', '등', '어깨', '이두', '삼두', '하체'];
 
 const VIDEO_IDS: Record<string, string> = {
-  '가슴': 'z-v7r_e3oI0', // 벤치프레스 정석
-  '등': 'vE_8_H_y_Yc', // 데드리프트 정석
+  '가슴': 'z-v7r_e3oI0', // 벤치프레스
+  '등': 'vE_8_H_y_Yc', // 데드리프트
   '어깨': 'YpW5f-4N6Fk', // 밀리터리 프레스
   '이두': '97I8Yx-4H_o', // 바벨 컬
   '삼두': 'p9Kj_C_j_2M', // 킥백
-  '하체': '_h7p66_O7v8'  // 스쿼트 정석
+  '하체': '_h7p66_O7v8'  // 스쿼트
 };
 
 export function ExerciseGuideBox() {

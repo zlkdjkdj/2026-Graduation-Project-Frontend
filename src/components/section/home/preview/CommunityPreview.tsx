@@ -1,3 +1,5 @@
+// 홈 화면의 커뮤니티 기능 미리보기 컴포넌트
+// 사용자 카드, 게시글 내용, 좋아요 및 댓글 수 등의 피드 카드 UI를 렌더링함
 import { MessageSquareIcon, TrophyIcon, ThumbsUpIcon } from '../../../ui/Icons';
 
 export const CommunityPreview = () => {

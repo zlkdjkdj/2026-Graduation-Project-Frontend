@@ -1,10 +1,8 @@
-// ============================================================
 // components/common/BarChart.tsx
 // 막대 차트 공통 컴포넌트.
-// StudyPage의 "주간 몰입도"와 ExercisePage의 "근성장 속도"에서 재사용된다.
-//
-// 호버 시 activeColor/labelActiveColor prop으로 넘긴 Tailwind 클래스를 적용한다.
-// ============================================================
+// StudyPage의 "주간 몰입도"와 ExercisePage의 "근성장 속도"에서 재사용
+// 호버 시 activeColor/labelActiveColor prop으로 넘긴 Tailwind 클래스를 적용
+
 interface BarChartProps {
   data: number[];        // 각 막대의 높이 비율 (0~100)
   labels: string[];      // 막대 하단 레이블 (e.g. ['월','화',...])
@@ -15,7 +13,7 @@ interface BarChartProps {
 
 /**
  * 재사용 가능한 세로 막대 차트
- * 각 열을 그룹으로 묶어 호버 인터랙션을 제공한다.
+ * 각 열을 그룹으로 묶어 호버 인터랙션을 제공
  */
 export function BarChart({ data, labels, activeColor, labelActiveColor, height = 'h-[250px]' }: BarChartProps) {
   return (

@@ -265,6 +265,29 @@
     writing-mode: vertical-rl;
     transform: rotate(180deg);
   }
+
+  /* Scroll Reveal Animations */
+  .reveal-content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal-content.active,
+  .reveal-left.active,
+  .reveal-right.active {
+    opacity: 1;
+    transform: translate(0);
+  }
 }
 
 @keyframes progress {

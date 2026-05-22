@@ -1,3 +1,4 @@
+// 홈 화면 하단의 회원가입/로그인 유도(CTA) 섹션 컴포넌트
 import { Link } from 'react-router-dom';
 import { Button } from '../../../common/Button';
 import { LayersIcon } from '../../../ui/Icons';
