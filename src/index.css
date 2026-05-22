@@ -50,7 +50,32 @@
 
 @layer utilities {
   .studio-card {
-    @apply bg-white dark:bg-[#09090b] border border-gray-200 dark:border-[#1a1a1a] rounded-[2.5rem] p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5 dark:hover:shadow-white/5;
+    @apply relative z-10 bg-white/60 dark:bg-black/40 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-[2rem] p-8 transition-all duration-500 shadow-xl shadow-gray-200/50 dark:shadow-black/50 hover:shadow-2xl hover:-translate-y-1;
+  }
+  
+  .gemini-bg {
+    @apply relative overflow-hidden;
+    background-color: var(--bg-main);
+  }
+  .gemini-bg::before {
+    content: '';
+    position: fixed;
+    top: -20%; left: -10%; width: 60vw; height: 60vh;
+    background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 60%);
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
+    animation: drift 20s ease-in-out infinite alternate;
+  }
+  .gemini-bg::after {
+    content: '';
+    position: fixed;
+    bottom: -20%; right: -10%; width: 60vw; height: 60vh;
+    background: radial-gradient(circle, rgba(244,63,94,0.12) 0%, transparent 60%);
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
+    animation: drift-reverse 25s ease-in-out infinite alternate;
   }
   
   .bento-grid {
@@ -141,9 +166,71 @@
   .bg-radial-glow {
     background: radial-gradient(circle at center, var(--tw-gradient-from) 0%, transparent 70%);
   }
+
+  /* Home Section Custom Styles */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .float-animation {
+    animation: floatHome 6s ease-in-out infinite;
+  }
+  @keyframes floatHome {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .glow-pulse {
+    animation: glowPulse 4s ease-in-out infinite alternate;
+  }
+  @keyframes glowPulse {
+    0% { opacity: 0.3; transform: scale(1); }
+    100% { opacity: 0.7; transform: scale(1.1); }
+  }
+  
+  .delay-300 { transition-delay: 300ms; }
+
+  .animate-blob {
+    animation: blob 10s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .animation-delay-2000 { animation-delay: 2s; }
+  .animation-delay-4000 { animation-delay: 4s; }
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+
+  .card-3d-hover {
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .card-3d-hover:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.1), -20px -20px 60px rgba(255,255,255,0.02);
+    z-index: 10;
+  }
+  
+  .italic { font-style: italic; }
+  
+  .vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
 }
 
 @keyframes progress {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(300%); }
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5%, 5%) scale(1.1); }
+}
+
+@keyframes drift-reverse {
+  0% { transform: translate(0, 0) scale(1.1); }
+  100% { transform: translate(-5%, -5%) scale(1); }
 }

@@ -1,56 +1,108 @@
-import type { SVGProps } from 'react';
+import {
+  Book,
+  Dumbbell,
+  Users,
+  Settings,
+  Sun,
+  Moon,
+  Upload,
+  Sparkles,
+  Play,
+  Pause,
+  RotateCcw,
+  Check,
+  Pencil,
+  ExternalLink,
+  TrendingUp,
+  AlertCircle,
+  Target,
+  PlayCircle,
+  Coffee,
+  Plus,
+  Save,
+  Trash2,
+  ArrowUp,
+  ArrowDown,
+  Activity,
+  Calendar,
+  Star,
+  Clock,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  MessageSquare,
+  ThumbsUp,
+  Trophy,
+  Search,
+  Bike,
+  Motorbike,
+  Car,
+  Helicopter,
+  Plane,
+  Rocket,
+  ChevronDown,
+  Menu,
+  Layers,
+  Smartphone,
+  Bell
+} from 'lucide-react';
+import type { LucideProps } from 'lucide-react';
 
-interface IconProps extends SVGProps<SVGSVGElement> {
+export interface IconProps extends Omit<LucideProps, 'size'> {
   size?: number | string;
 }
 
-export const BookIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>;
-export const DumbbellIcon = ({ color = "currentColor", ...props }: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={color} {...props}><path d="M6.5 6.5h11M6.5 17.5h11M4 9h16M4 15h16M2 12h20M9 6.5v11M15 6.5v11"/></svg>;
-export const UsersIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>;
-export const SettingsIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0"/></svg>;
-export const SunIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42"/></svg>;
-export const MoonIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
-export const UploadIcon = ({ color = "stroke-blue-500", ...props }: IconProps) => <svg width="24" height="24" fill="none" strokeWidth="1.5" viewBox="0 0 24 24" className={color} {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>;
-export const SparklesIcon = ({ size = 18, ...props }: IconProps) => <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>;
-export const PlayIcon = (props: IconProps) => <svg width="20" height="20" fill="white" viewBox="0 0 24 24" {...props}><path d="M5 3l14 9-14 9V3z"/></svg>;
-export const PauseIcon = (props: IconProps) => <svg width="20" height="20" fill="white" viewBox="0 0 24 24" {...props}><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>;
-export const ResetIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>;
-export const CheckIcon = (props: IconProps) => <svg width="12" height="12" fill="none" stroke="white" strokeWidth="3" viewBox="0 0 24 24" {...props}><path d="M20 6L9 17l-5-5"/></svg>;
-export const EditIcon = ({ size = 14, ...props }: IconProps) => <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>;
-export const ExternalLinkIcon = (props: IconProps) => <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>;
-export const TrendIcon = ({ color = "currentColor", ...props }: IconProps) => <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={color} {...props}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>;
-export const AlertIcon = ({ color = "currentColor", ...props }: IconProps) => <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={color} {...props}><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>;
-export const TargetIcon = ({ color = "currentColor", ...props }: IconProps) => <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={color} {...props}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>;
-export const PlayCircleIcon = ({ className, ...props }: IconProps) => <svg viewBox="0 0 24 24" fill="currentColor" className={className} {...props}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>;
-export const CoffeeIcon = (props: IconProps) => <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg>;
-export const PlusIcon = (props: IconProps) => <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>;
-export const SaveIcon = (props: IconProps) => <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>;
-export const TrashIcon = ({ size = 14, color = "currentColor", ...props }: IconProps) => <svg width={size} height={size} fill="none" stroke={color} strokeWidth="2" viewBox="0 0 24 24" {...props}><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>;
-export const ArrowUpIcon = ({ size = 14, ...props }: IconProps) => <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>;
-export const ArrowDownIcon = ({ size = 14, ...props }: IconProps) => <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>;
-export const ActivityIcon = ({ size = 18, ...props }: IconProps) => <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>;
-export const CalendarIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>;
-export const StarIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>;
-export const ClockIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
-export const ChevronLeftIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><polyline points="15 18 9 12 15 6"/></svg>;
-export const ChevronRightIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><polyline points="9 18 15 12 9 6"/></svg>;
-export const XIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
-export const MessageSquareIcon = (props: IconProps) => <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>;
-export const ThumbsUpIcon = (props: IconProps) => <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>;
-export const TrophyIcon = (props: IconProps) => <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17M14 14.66V17M18 2H6v7a6 6 0 0 0 12 0V2zM12 17v3M12 22v-2"/></svg>;
-export const SearchIcon = (props: IconProps) => <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
+// Map Lucide icons with default props corresponding to the original ones
+export const BookIcon = ({ size = 18, ...props }: IconProps) => <Book size={size} {...props} />;
+export const DumbbellIcon = ({ size = 18, ...props }: IconProps) => <Dumbbell size={size} {...props} />;
+export const UsersIcon = ({ size = 18, ...props }: IconProps) => <Users size={size} {...props} />;
+export const SettingsIcon = ({ size = 18, ...props }: IconProps) => <Settings size={size} {...props} />;
+export const SunIcon = ({ size = 18, ...props }: IconProps) => <Sun size={size} {...props} />;
+export const MoonIcon = ({ size = 18, ...props }: IconProps) => <Moon size={size} {...props} />;
+export const UploadIcon = ({ size = 24, ...props }: IconProps) => <Upload size={size} {...props} />;
+export const SparklesIcon = ({ size = 18, ...props }: IconProps) => <Sparkles size={size} {...props} />;
+export const PlayIcon = ({ size = 20, fill = 'currentColor', ...props }: IconProps) => <Play size={size} fill={fill} {...props} />;
+export const PauseIcon = ({ size = 20, fill = 'currentColor', ...props }: IconProps) => <Pause size={size} fill={fill} {...props} />;
+export const ResetIcon = ({ size = 18, ...props }: IconProps) => <RotateCcw size={size} {...props} />;
+export const CheckIcon = ({ size = 12, ...props }: IconProps) => <Check size={size} {...props} />;
+export const EditIcon = ({ size = 14, ...props }: IconProps) => <Pencil size={size} {...props} />;
+export const ExternalLinkIcon = ({ size = 14, ...props }: IconProps) => <ExternalLink size={size} {...props} />;
+export const TrendIcon = ({ size = 16, ...props }: IconProps) => <TrendingUp size={size} {...props} />;
+export const AlertIcon = ({ size = 16, ...props }: IconProps) => <AlertCircle size={size} {...props} />;
+export const TargetIcon = ({ size = 16, ...props }: IconProps) => <Target size={size} {...props} />;
+export const PlayCircleIcon = ({ size = 24, ...props }: IconProps) => <PlayCircle size={size} {...props} />;
+export const CoffeeIcon = ({ size = 16, ...props }: IconProps) => <Coffee size={size} {...props} />;
+export const PlusIcon = ({ size = 20, ...props }: IconProps) => <Plus size={size} {...props} />;
+export const SaveIcon = ({ size = 16, ...props }: IconProps) => <Save size={size} {...props} />;
+export const TrashIcon = ({ size = 14, ...props }: IconProps) => <Trash2 size={size} {...props} />;
+export const ArrowUpIcon = ({ size = 14, ...props }: IconProps) => <ArrowUp size={size} {...props} />;
+export const ArrowDownIcon = ({ size = 14, ...props }: IconProps) => <ArrowDown size={size} {...props} />;
+export const ActivityIcon = ({ size = 18, ...props }: IconProps) => <Activity size={size} {...props} />;
+export const CalendarIcon = ({ size = 18, ...props }: IconProps) => <Calendar size={size} {...props} />;
+export const StarIcon = ({ size = 18, ...props }: IconProps) => <Star size={size} {...props} />;
+export const ClockIcon = ({ size = 18, ...props }: IconProps) => <Clock size={size} {...props} />;
+export const ChevronLeftIcon = ({ size = 18, ...props }: IconProps) => <ChevronLeft size={size} {...props} />;
+export const ChevronRightIcon = ({ size = 18, ...props }: IconProps) => <ChevronRight size={size} {...props} />;
+export const XIcon = ({ size = 18, ...props }: IconProps) => <X size={size} {...props} />;
+export const MessageSquareIcon = ({ size = 14, ...props }: IconProps) => <MessageSquare size={size} {...props} />;
+export const ThumbsUpIcon = ({ size = 14, ...props }: IconProps) => <ThumbsUp size={size} {...props} />;
+export const TrophyIcon = ({ size = 20, ...props }: IconProps) => <Trophy size={size} {...props} />;
+export const SearchIcon = ({ size = 16, ...props }: IconProps) => <Search size={size} {...props} />;
 
-// Reward Icons (SVG)
-export const BicycleIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg>;
-export const MotorcycleIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><circle cx="7" cy="15" r="5"/><circle cx="18" cy="15" r="5"/><path d="M5 10l5-3h4l5 3M10 7v3h4V7"/></svg>;
-export const CarIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>;
-export const HelicopterIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="m3 10 18-3M7 9v3M12 8v4M17 8v4M2 13h20l-3 4H5l-3-4zM8 17v3M16 17v3M6 20h12"/></svg>;
-export const PlaneIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5s-2.5 0-4.5 1.5L13 8.5 4.8 6.7c-2.2-.5-3.8 1.1-3.3 3.3L9.7 12l-5 5-2.2-.5c-1.1-.2-1.8.5-1.5 1.5L2.5 21l3.5.5c1 .3 1.7-.4 1.5-1.5l-.5-2.2 5-5 2 8.2c.5 2.2 2.1 3.8 4.3 3.3z"/></svg>;
-export const RocketIcon = (props: IconProps) => <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3M19 9l-2 2"/><path d="M11.5 11.5 10 13c-1.17 1.17-2.04 2.66-2.5 4.3l-.5 1.7 1.7-.5c1.64-.46 3.13-1.33 4.3-2.5l1.5-1.5M15 9l-1.1-1.1c-.24-.24-.46-.51-.67-.79C12.06 5.56 12 4 12 4s1.56.06 3.11 1.23c.28.21.55.43.79.67L17 7M20 4c1 1-1.5 5-3.5 7s-6 4.5-7 3.5 1.5-5 3.5-7 6-4.5 7-3.5z"/></svg>;
-export const ChevronDownIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><polyline points="6 9 12 15 18 9"/></svg>;
-export const MenuIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
-export const LayersIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>;
-export const SmartphoneIcon = (props: IconProps) => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" {...props}><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>;
+// Reward Icons
+export const BicycleIcon = ({ size = 24, ...props }: IconProps) => <Bike size={size} {...props} />;
+export const MotorcycleIcon = ({ size = 24, ...props }: IconProps) => <Motorbike size={size} {...props} />;
+export const CarIcon = ({ size = 24, ...props }: IconProps) => <Car size={size} {...props} />;
+export const HelicopterIcon = ({ size = 24, ...props }: IconProps) => <Helicopter size={size} {...props} />;
+export const PlaneIcon = ({ size = 24, ...props }: IconProps) => <Plane size={size} {...props} />;
+export const RocketIcon = ({ size = 24, ...props }: IconProps) => <Rocket size={size} {...props} />;
+
+// Additional Navigation / Layout UI Icons
+export const ChevronDownIcon = ({ size = 18, ...props }: IconProps) => <ChevronDown size={size} {...props} />;
+export const MenuIcon = ({ size = 18, ...props }: IconProps) => <Menu size={size} {...props} />;
+export const LayersIcon = ({ size = 18, ...props }: IconProps) => <Layers size={size} {...props} />;
+export const SmartphoneIcon = ({ size = 18, ...props }: IconProps) => <Smartphone size={size} {...props} />;
+export const BellIcon = ({ size = 18, ...props }: IconProps) => <Bell size={size} {...props} />;
 
 // ------------------------------------------------------------------
 //  BadgeIcon – Placeholder (using SparklesIcon)
@@ -58,7 +110,7 @@ export const SmartphoneIcon = (props: IconProps) => <svg width="18" height="18" 
 export const BadgeIcon = ({ level: _level, size = 32 }: { level: string; size?: number }) => {
   return (
     <div 
-      className={`rounded-lg flex items-center justify-center bg-gray-100 dark:bg-[#1a1a1a] text-gray-400`}
+      className="rounded-lg flex items-center justify-center bg-gray-100 dark:bg-[#1a1a1a] text-gray-400"
       style={{ width: size, height: size }}
     >
       <SparklesIcon size={size ? Number(size) * 0.6 : 20} />
@@ -72,12 +124,10 @@ export const BadgeIcon = ({ level: _level, size = 32 }: { level: string; size?: 
 export const RewardIcon = ({ index: _index, size = 40 }: { index: number; size?: number }) => {
   return (
     <div 
-      className={`rounded-xl flex items-center justify-center bg-gray-50 dark:bg-[#111] text-indigo-500`}
+      className="rounded-xl flex items-center justify-center bg-gray-50 dark:bg-[#111] text-indigo-500"
       style={{ width: size, height: size }}
     >
       <TrophyIcon size={size ? Number(size) * 0.6 : 24} />
     </div>
   );
 };
-
-

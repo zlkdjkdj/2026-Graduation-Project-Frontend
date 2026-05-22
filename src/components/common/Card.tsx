@@ -30,7 +30,7 @@ export function CardTitle({ children, className = '', icon }: { children: ReactN
   return (
     <h2 className={`text-xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3 tracking-tight ${className}`}>
       {/* 아이콘이 있을 때만 렌더링, 배경 칩으로 감쌈 */}
-      {icon && <span className="p-2 bg-gray-100 dark:bg-[#1a1a1a] rounded-xl text-gray-600 dark:text-gray-400">{icon}</span>}
+      {icon && <span className="p-2.5 bg-gray-100/50 dark:bg-white/5 backdrop-blur-md rounded-2xl text-gray-700 dark:text-gray-300 shadow-sm border border-black/5 dark:border-white/5">{icon}</span>}
       {children}
     </h2>
   );

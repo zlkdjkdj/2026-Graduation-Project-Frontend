@@ -4,12 +4,12 @@
 // ============================================================
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { MainLayout } from '../components/layout/MainLayout';
-import { StudyPage } from '../pages/study/StudyPage';
-import { ExercisePage } from '../pages/exercise/ExercisePage';
-import { SchedulePage } from '../pages/schedule/SchedulePage';
-import { CommunityPage } from '../pages/community/CommunityPage';
-import { EmptyPage } from '../pages/home/EmptyPage';
-import { Home } from '../pages/home/home';
+import { StudyPage } from '../pages/StudyPage';
+import { ExercisePage } from '../pages/ExercisePage';
+import { SchedulePage } from '../pages/SchedulePage';
+import { CommunityPage } from '../pages/CommunityPage';
+import { EmptyPage } from '../pages/EmptyPage';
+import { Home } from '../pages/home';
 
 export const router = createBrowserRouter([
   {
@@ -32,12 +32,12 @@ export const router = createBrowserRouter([
     path: '/main',
     element: <MainLayout />,
     children: [
-      { path: '',          element: <Navigate to="study" replace /> }, // /main 접근 시 study로 리다이렉트
-      { path: 'study',     element: <StudyPage /> },
-      { path: 'exercise',  element: <ExercisePage /> },
-      { path: 'schedule',  element: <SchedulePage /> },
+      { path: '', element: <Navigate to="study" replace /> }, // /main 접근 시 study로 리다이렉트
+      { path: 'study', element: <StudyPage /> },
+      { path: 'exercise', element: <ExercisePage /> },
+      { path: 'schedule', element: <SchedulePage /> },
       { path: 'community', element: <CommunityPage /> },
-      { path: 'settings',  element: <EmptyPage title="설정" /> },
+      { path: 'settings', element: <EmptyPage title="설정" /> },
     ],
   },
 ]);
