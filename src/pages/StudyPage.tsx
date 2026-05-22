@@ -13,6 +13,7 @@ import { useTodos } from '../hooks/queries/useTodos';
 import {
   SyllabusBox, ChecklistBox, QuizGeneratorBox, StopwatchBox,
   StudyRecordBox, LearningStrategyBox, DashboardBox, GeminiBox,
+  StudyReportModal,
 } from '../components/section/study';
 import { PlusIcon, BookIcon, XIcon, TrendIcon, SparklesIcon } from '../components/ui/Icons';
 
@@ -26,6 +27,7 @@ export function StudyPage() {
   // 모달 및 폼 제어 로컬 상태
   const [isSyllabusModalOpen, setIsSyllabusModalOpen] = useState(false);
   const [isPeriodEditOpen, setIsPeriodEditOpen] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [excludeDates, setExcludeDates] = useState<string[]>([]);
@@ -147,7 +149,7 @@ export function StudyPage() {
         <div className="bento-grid">
           {/* 대시보드 */}
           <div className="col-span-12 lg:col-span-8">
-            <DashboardBox startDate={startDate} endDate={endDate} />
+            <DashboardBox startDate={startDate} endDate={endDate} onViewReport={() => setIsReportModalOpen(true)} />
           </div>
 
           {/* 체크리스트 */}
@@ -244,6 +246,11 @@ export function StudyPage() {
             </button>
           </div>
         </div>
+      )}
+
+      {/* 공부 리포트 모달 */}
+      {isReportModalOpen && (
+        <StudyReportModal onClose={() => setIsReportModalOpen(false)} />
       )}
     </>
   );

@@ -37,4 +37,17 @@ export interface CreateTodoDto extends Omit<Todo, 'id'> {}
  */
 export interface UpdateTodoDto extends Partial<Todo> {}
 
+/** 
+ * 공부 기록 리포트 모델
+ */
+export interface StudyReport {
+  totalStudyTime: number;       // 총 공부 시간 (분 단위)
+  completedTodosCount: number;  // 완료한 진도 수
+  totalTodosCount: number;      // 전체 진도 수
+  weeklyStudyMinutes: number[]; // 주간 공부 시간 (월~일, 분)
+  studiedKeywords: string[];    // 공부한 핵심 키워드 리스트
+  aiFeedbackSummary: string;    // AI가 분석한 총평 및 전략 리포트
+  reportDate: string;           // 리포트 생성일
+}
+
 

@@ -308,7 +308,7 @@ export function LearningStrategyBox({ suggestions }: { suggestions: any[] }) {
   );
 }
 
-export function DashboardBox({ startDate, endDate }: { startDate?: string, endDate?: string }) {
+export function DashboardBox({ startDate, endDate, onViewReport }: { startDate?: string, endDate?: string, onViewReport?: () => void }) {
   return (
     <Card className="p-10 border-t-4 border-indigo-500">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
@@ -319,7 +319,7 @@ export function DashboardBox({ startDate, endDate }: { startDate?: string, endDa
           </p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
-          <button className="flex-1 md:flex-none text-xs font-black uppercase tracking-widest px-6 py-4 border border-gray-100 dark:border-[#1a1a1a] rounded-2xl hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-all">리포트</button>
+          <button onClick={onViewReport} className="flex-1 md:flex-none text-xs font-black uppercase tracking-widest px-6 py-4 border border-gray-100 dark:border-[#1a1a1a] rounded-2xl hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-all cursor-pointer">리포트</button>
           <button className="flex-1 md:flex-none text-xs font-black uppercase tracking-widest px-6 py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl active:scale-95 transition-all shadow-xl shadow-indigo-500/10">작업 시작</button>
         </div>
       </div>
